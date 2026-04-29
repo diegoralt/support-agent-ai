@@ -1,107 +1,111 @@
-# 🤖 Support Agent AI - Intelligent Ticket Triage System
+# 🤖 Agente de Soporte AI - Sistema Inteligente de Triaje de Tickets
 
-**Status**: 🔨 In Development (Week 1 of 4) | **Building in public** on [LinkedIn](https://www.linkedin.com/in/diego-reyes-altamirano/)
+**Estado**: 🔨 En Desarrollo (Semana 1 de 4) | **Building in public** en [LinkedIn](https://www.linkedin.com/in/diego-reyes-altamirano/)
 
-## 🎯 Overview
+## 🎯 Resumen
 
-An intelligent support agent that automatically classifies, prioritizes, and responds to support tickets using Claude API, reducing manual triage time from 8+ hours/day to <1 hour/day.
+Un agente de soporte inteligente que automáticamente clasifica, prioriza y responde tickets de soporte usando OpenAI API, reduciendo el tiempo manual de triaje de 8+ horas/día a <1 hora/día.
 
-## 📊 Problem Statement
-
-```
-Current State:
-  • 200 tickets/day
-  • 2.5 min per ticket × 200 = 8.3 hours/day of manual work
-  • 40% misclassification rate
-  • 30+ min average SLA response time
-
-Target:
-  • 90% automated (180 tickets)
-  • 6 hours/day saved
-  • 90%+ accuracy
-  • 5 min average SLA
-```
-
-## ✨ Solution Architecture
+## 📊 Declaración del Problema
 
 ```
-┌─ WEBHOOK INGESTION ─────────────┐
-│  New Support Ticket             │
+Estado Actual:
+  • 200 tickets/día
+  • 2.5 min por ticket × 200 = 8.3 horas/día de trabajo manual
+  • 40% de tasa de malclasificación
+  • 30+ min de tiempo de respuesta SLA promedio
+
+Objetivo:
+  • 90% automatizado (180 tickets)
+  • 6 horas/día ahorradas
+  • 90%+ de precisión
+  • 5 min SLA promedio
+```
+
+## ✨ Arquitectura de la Solución
+
+```
+┌─ INGESTA POR WEBHOOK ───────────┐
+│  Nuevo Ticket de Soporte        │
 └──────────────┬──────────────────┘
                ↓
-┌─ AI ANALYSIS (Claude API) ──────┐
-│  • Classify: Billing|Technical   │
-│              |Feature|Bug|Other  │
-│  • Priority: Critical|High|Med   │
-│  • Detect if FAQ                 │
+┌─ ANÁLISIS IA (OpenAI API) ──────┐
+│  • Clasificar: Billing|Técnico   │
+│               |Feature|Bug|Otro  │
+│  • Prioridad: Crítica|Alta|Med   │
+│  • Detectar si es FAQ            │
 └──────────────┬──────────────────┘
                ↓
-┌─ DECISION LOGIC ────────────────┐
-│  IF FAQ → Auto-respond          │
-│  IF Technical → Route to Dev    │
-│  IF Critical → Escalate to Lead │
+┌─ LÓGICA DE DECISIÓN ────────────┐
+│  SI FAQ → Respuesta automática   │
+│  SI Técnico → Asignar a Dev      │
+│  SI Crítico → Escalar a Lead     │
 └──────────────┬──────────────────┘
                ↓
-┌─ PERSISTENCE & NOTIFY ──────────┐
-│  • Save in Supabase             │
-│  • Log response                 │
-│  • Trigger Slack/Email notif    │
+┌─ PERSISTENCIA Y NOTIFICACIÓN ───┐
+│  • Guardar en Supabase           │
+│  • Registrar respuesta           │
+│  • Trigger Slack/Email notif     │
 └─────────────────────────────────┘
 ```
 
-## 🔧 Tech Stack
+## 🔧 Stack Técnico
 
-| Component | Technology | Purpose |
+| Componente | Tecnología | Propósito |
 |-----------|-----------|---------|
-| AI Engine | Claude API | Ticket analysis & classification |
-| Workflow | n8n | Webhook → Claude → Decision → Action |
-| Database | Supabase (PostgreSQL) | Ticket storage + FAQ base |
-| Triggers | n8n Webhook | Receive incoming tickets |
-| Notifications | Slack/Email (n8n) | Alert team on escalations |
+| Motor IA | OpenAI API | Análisis y clasificación de tickets |
+| Flujo de Trabajo | n8n | Webhook → OpenAI → Decisión → Acción |
+| Base de Datos | Supabase (PostgreSQL) | Almacenamiento de tickets + base FAQ |
+| Triggers | n8n Webhook | Recibir tickets entrantes |
+| Notificaciones | Slack/Email (n8n) | Alertar al equipo en escalaciones |
 
-## 📈 Expected Metrics
+## 📈 Métricas Esperadas
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| Daily tickets | 200 | 200 | - |
-| Manual work | 8.3h | <1h | **92% reduction** |
-| Classification accuracy | 60% | 90% | **+30%** |
-| Response SLA | 30 min | 5 min | **6x faster** |
-| Automation rate | 0% | 90% | **90% automated** |
+| Métrica | Antes | Después | Mejora |
+|--------|-------|---------|---------|
+| Tickets diarios | 200 | 200 | - |
+| Trabajo manual | 8.3h | <1h | **92% reducción** |
+| Precisión clasificación | 60% | 90% | **+30%** |
+| SLA de respuesta | 30 min | 5 min | **6x más rápido** |
+| Tasa automatización | 0% | 90% | **90% automatizado** |
 
-## 🚀 Development Timeline
+## 🚀 Timeline de Desarrollo
 
-- **Week 1** (Apr 28 - May 2): MVP dev + validation
-- **Validation**: 50 test tickets, 90%+ accuracy
-- **Video Demo**: Friday, May 2
-- **Posts**: LinkedIn journey documented daily
+- **Semana 1** (28 abril - 2 mayo): Desarrollo MVP + validación
+- **Validación**: 50 tickets de prueba, 90%+ de precisión
+- **Video Demo**: Viernes, 2 de mayo
+- **Posts**: Journey documentado diariamente en LinkedIn
 
-## 📚 Project Structure
+## 📚 Estructura del Proyecto
 
 ```
 support-agent-ai/
-├── README.md           (this file)
-├── src/
-│   ├── prompts/        (Claude prompts)
-│   ├── workflows/      (n8n exports)
-│   └── utils/          (helpers)
-├── tests/
-│   ├── test_tickets.csv
-│   └── validation_results.md
+├── README.md                (este archivo)
 ├── docs/
-│   ├── architecture.md
-│   └── deployment.md
-└── .gitignore
+│   ├── TECHNICAL-SPECIFICATION.md
+│   ├── ARCHITECTURE.md
+│   └── /database
+├── /workflows               (exportaciones n8n)
+├── /src
+│   ├── /prompts            (prompts OpenAI)
+│   ├── /orchestration      (scripts Python)
+│   └── /utils              (helpers)
+├── /tests
+│   ├── test_tickets.json
+│   └── validation_results.md
+├── .env.example
+├── .gitignore
+└── LICENSE
 ```
 
-## 🔗 Resources
+## 🔗 Recursos
 
-- **LinkedIn Journey**: https://www.linkedin.com/in/diego-reyes-altamirano/
-- **Part of**: 4-week AI project challenge (May 2026)
-- **Blog/Case Study**: [Link when available]
+- **Journey en LinkedIn**: https://www.linkedin.com/in/diego-reyes-altamirano/
+- **Parte de**: Desafío de proyecto IA de 4 semanas (Mayo 2026)
+- **Blog/Case Study**: [Link cuando esté disponible]
 
 ---
 
-**Last Updated**: 2026-04-27  
-**Author**: Diego Reyes (@diegoralt)  
-**License**: MIT
+**Última Actualización**: 2026-04-28  
+**Autor**: Diego Reyes (@diegoralt)  
+**Licencia**: MIT
