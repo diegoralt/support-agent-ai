@@ -5,85 +5,85 @@ status: APPROVED
 project: Case 1 - Support Intelligence Agent
 ---
 
-# CASE 1: Technical Specification - Support Intelligence Agent
-## With OpenAI + Supabase + n8n (Railway)
+# CASO 1: Especificación Técnica - Agente Inteligente de Soporte
+## Con OpenAI + Supabase + n8n (Railway)
 
-## 1. PROBLEM & SOLUTION
+## 1. PROBLEMA & SOLUCIÓN
 
-**Real Problem**
+**Problema Real**
 ```
-- SaaS Company: 200 tickets/day
-- Support team: 2.5 min/ticket manual triage
-- 400-600 minutes/day = 8.3 hours/day wasted
-- 40% incorrect classifications
+- Empresa SaaS: 200 tickets/día
+- Equipo soporte: 2.5 min/ticket triage manual
+- 400-600 minutos/día = 8.3 horas/día desperdiciadas
+- 40% de tasa de malclasificación
 ```
 
-**Solution: Intelligent Agent**
+**Solución: Agente Inteligente**
 ```
-Ticket ingesta → OpenAI analyzes → Automatic classification + Decision
+Ticket ingresa → OpenAI analiza → Clasificación automática + Decisión
 ↓
-Is FAQ known? → Auto response + send
-Is technical? → Assign to specialist + notify
-Is critical? → Escalate to leadership
+¿Es FAQ conocida? → Respuesta automática + envía
+¿Es técnico? → Asigna a especialista + notifica
+¿Es crítico? → Escala a liderazgo
 ```
 
 ---
 
-## 2. TECHNICAL ARCHITECTURE
+## 2. ARQUITECTURA TÉCNICA
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    COMPLETE FLOW                            │
+│                    FLUJO COMPLETO                           │
 └─────────────────────────────────────────────────────────────┘
 
-INGESTION (n8n Webhook)
+INGESTA (n8n Webhook)
     ↓
     │ Ticket JSON: {id, subject, description, priority}
     ↓
-ANALYSIS (OpenAI)
-    │ Model: gpt-4-mini
-    │ Prompt: Classify + extract context
+ANÁLISIS (OpenAI)
+    │ Modelo: gpt-4-mini
+    │ Prompt: Clasificar + extraer contexto
     │ Output: {category, priority, is_faq, confidence}
     ↓
-DECISION (n8n Logic)
-    │ IF is_faq → Search FAQ database
-    │ IF is_faq → Generate auto response
-    │ ELSE IF technical → Assign to dev_team
-    │ ELSE IF critical → Escalate to leadership
-    │ ELSE → Normal human response
+DECISIÓN (Lógica n8n)
+    │ SI es_faq → Buscar en BD FAQ
+    │ SI es_faq → Generar respuesta automática
+    │ ELSE SI técnico → Asignar a dev_team
+    │ ELSE SI crítico → Escalar a liderazgo
+    │ ELSE → Respuesta humana normal
     ↓
-PERSISTENCE (Supabase PostgreSQL)
-    │ Save: complete ticket + classification + response
-    │ Save: processing log (audit trail)
+PERSISTENCIA (Supabase PostgreSQL)
+    │ Guardar: ticket completo + clasificación + respuesta
+    │ Guardar: log de procesamiento (auditoría)
     ↓
-ACTION (n8n Send)
-    │ Email to customer
-    │ Slack to team if escalation needed
-    │ Update ticket status
+ACCIÓN (n8n Send)
+    │ Email al cliente
+    │ Slack al equipo si requiere escalación
+    │ Actualizar estado ticket
     ↓
 OUTPUT
-    │ Auto response or specialist assignment
-    │ Metric: <2 min time-to-classify
+    │ Respuesta automática o asignación a especialista
+    │ Métrica: <2 min tiempo-a-clasificar
 ```
 
 ---
 
-## 3. TECH STACK
+## 3. STACK TÉCNICO
 
-| Component | Tool | Role |
-|-----------|------|------|
-| **AI Analysis** | OpenAI (gpt-4-mini) | Classification, response generation |
-| **Orchestration** | n8n (Railway) | Webhook→analysis→decision→action |
-| **Database** | Supabase PostgreSQL | Tickets, FAQs, responses, logs |
-| **Vector Search** | pgvector (Supabase) | FAQ similarity search |
-| **Webhook Entry** | n8n Webhook | Receive tickets |
-| **Notifications** | n8n integrations | Slack/Email for escalations |
+| Componente | Herramienta | Rol |
+|-----------|-----------|-----------|
+| **Análisis IA** | OpenAI (gpt-4-mini) | Clasificación, generación de respuestas |
+| **Orquestación** | n8n (Railway) | Webhook→análisis→decisión→acción |
+| **Base de Datos** | Supabase PostgreSQL | Tickets, FAQs, respuestas, logs |
+| **Búsqueda Vectorial** | pgvector (Supabase) | Búsqueda FAQ por similitud |
+| **Webhook Entry** | n8n Webhook | Recibir tickets |
+| **Notificaciones** | n8n integrations | Slack/Email para escalaciones |
 
 ---
 
-## 4. SUPABASE SCHEMA (PostgreSQL - English)
+## 4. SCHEMA SUPABASE (PostgreSQL - Inglés)
 
-### Table 1: `support_tickets`
+### Tabla 1: `support_tickets`
 ```sql
 CREATE TABLE support_tickets (
   id SERIAL PRIMARY KEY,
@@ -120,7 +120,7 @@ CREATE TABLE support_tickets (
 );
 ```
 
-### Table 2: `faqs`
+### Tabla 2: `faqs`
 ```sql
 CREATE TABLE faqs (
   id SERIAL PRIMARY KEY,
@@ -144,7 +144,7 @@ CREATE TABLE faqs (
 );
 ```
 
-### Table 3: `processing_logs`
+### Tabla 3: `processing_logs`
 ```sql
 CREATE TABLE processing_logs (
   id SERIAL PRIMARY KEY,
@@ -166,7 +166,7 @@ CREATE TABLE processing_logs (
 );
 ```
 
-### Table 4: `auto_response_templates`
+### Tabla 4: `auto_response_templates`
 ```sql
 CREATE TABLE auto_response_templates (
   id SERIAL PRIMARY KEY,
@@ -181,13 +181,13 @@ CREATE TABLE auto_response_templates (
 
 ---
 
-## 5. OPENAI PROMPTS (Exact Definition)
+## 5. PROMPTS OPENAI (Definición Exacta)
 
-### Prompt 1: Classification
+### Prompt 1: Clasificación
 ```
-Role: You are an expert support agent for a SaaS company.
+Role: Eres un agente experto en soporte de SaaS.
 
-Task: Classify the following support ticket.
+Task: Clasificar el siguiente ticket de soporte.
 
 Input:
 Subject: {subject}
@@ -201,177 +201,178 @@ Output MUST be valid JSON:
   "is_faq": true/false,
   "faq_keywords": ["keyword1", "keyword2"],
   "confidence": 0.85,
-  "summary": "Brief problem summary",
+  "summary": "Resumen breve del problema",
   "next_action": "auto_response | technical_escalation | leadership_escalation"
 }
 
 Guidelines:
-- Critical: Service down, data loss, billing error
-- High: Feature broken, blocking bug
-- Medium: Unexpected behavior, improvement request
-- Low: Questions, documentation, feedback
+- Critical: Servicio caído, pérdida datos, error billing
+- High: Feature roto, bug bloqueador
+- Medium: Comportamiento inesperado, mejora solicitada
+- Low: Preguntas, documentación, feedback
 
 Output ONLY valid JSON. No additional text.
 ```
 
-### Prompt 2: Auto Response Generation (If FAQ)
+### Prompt 2: Generación de Respuesta Automática (Si es FAQ)
 ```
-Role: Professional, friendly support agent.
+Role: Agente de soporte amigable pero profesional.
 
-Task: Generate an auto response based on FAQ match.
+Task: Generar respuesta automática basada en FAQ.
 
 Input:
 Customer Ticket: {ticket_description}
 Relevant FAQ: {faq_content}
 Customer Name: {customer_name}
 
-Output: Professional email, max 200 words.
+Output: Email profesional, máximo 200 palabras.
 
 Structure:
-1. Personalized greeting
-2. Acknowledge the problem
-3. Step-by-step solution (from FAQ)
+1. Saludo personalizado
+2. Reconocer el problema
+3. Solución paso a paso (desde FAQ)
 4. Call-to-action
-5. Professional closing
+5. Cierre profesional
 
-Tone: Empathetic, clear, no unnecessary jargon.
+Tone: Empático, claro, sin jargón técnico innecesario.
 ```
 
 ---
 
-## 6. N8N WORKFLOW (Railway) - Node Sequence
+## 6. N8N WORKFLOW (Railway) - Secuencia de Nodos
 
 ```
-1. [WEBHOOK] Receive ticket JSON
+1. [WEBHOOK] Recibir ticket JSON
    Endpoint: https://[railway-n8n-url]/webhook/support-tickets
    Auth: Bearer token
 
-2. [OPENAI] Classification
-   - Build dynamic prompt with ticket
-   - Call gpt-4-mini
-   - Parse JSON response
+2. [OPENAI] Clasificación
+   - Construir prompt dinámico con ticket
+   - Llamar gpt-4-mini
+   - Parsear respuesta JSON
 
-3. [SUPABASE] Save raw ticket
-   - INSERT into support_tickets
+3. [SUPABASE] Guardar ticket crudo
+   - INSERT en support_tickets
    - Set status: "classified"
 
-4. [CONDITIONAL] Decision Logic
-   IF is_faq → goto node 5
-   ELSE IF technical → goto node 6
-   ELSE IF critical → goto node 7
+4. [CONDITIONAL] Lógica de decisión
+   SI is_faq → goto node 5
+   ELSE SI technical → goto node 6
+   ELSE SI critical → goto node 7
    ELSE → goto node 8
 
-5. [OPENAI] Generate Response (If FAQ)
-   - Query FAQ from Supabase
-   - Create response prompt
-   - Generate auto response
+5. [OPENAI] Generar respuesta (Si es FAQ)
+   - Buscar FAQ en Supabase
+   - Crear prompt de respuesta
+   - Generar respuesta automática
 
-6. [SLACK] Technical Notification
-   - Send to #technical-support
-   - Assign to dev_team
-   - @mention if critical
+6. [SLACK] Notificación técnica
+   - Enviar a #technical-support
+   - Asignar a dev_team
+   - @mencionar si crítico
 
-7. [SLACK] Leadership Alert
-   - Send to #leadership-alerts
-   - Mark critical
+7. [SLACK] Alerta de liderazgo
+   - Enviar a #leadership-alerts
+   - Marcar como crítico
 
-8. [SUPABASE] Update ticket with response
+8. [SUPABASE] Actualizar ticket con respuesta
 
-9. [EMAIL] Send to customer
-   - Auto response if generated
-   - "We're analyzing" if escalated
+9. [EMAIL] Enviar al cliente
+   - Respuesta automática si se generó
+   - "Estamos analizando" si escalado
 
-10. [LOG] Save to processing_logs
-    - Full execution metadata
-    - Timing, tokens, errors
+10. [LOG] Guardar en processing_logs
+    - Metadata completa de ejecución
+    - Tiempos, tokens, errores
 ```
 
 ---
 
-## 7. TEST PLAN - 50 Ticket Dataset
+## 7. PLAN DE TESTING - Dataset de 50 Tickets
 
-**Billing Category (15 tickets)**
-- "How do I change my plan?" → FAQ Match
-- "I was charged twice" → Billing High
-- "Can I request a refund?" → Billing Medium
+**Categoría Billing (15 tickets)**
+- "¿Cómo cambio mi plan?" → FAQ Match
+- "Me cobraron dos veces" → Billing High
+- "¿Puedo pedir reembolso?" → Billing Medium
 
-**Technical Category (20 tickets)**
-- "API returns 500 error" → Bug Critical
-- "How to integrate webhook?" → Feature/Doc
-- "Feature X not working" → Bug High
+**Categoría Technical (20 tickets)**
+- "API retorna 500 error" → Bug Critical
+- "¿Cómo integro webhook?" → Feature/Doc
+- "Feature X no funciona" → Bug High
 
 **Feature Requests (10 tickets)**
-- "Need CSV export" → Feature Medium
+- "Necesito exportar a CSV" → Feature Medium
 
-**Other (5 tickets)**
-- Feedback, suggestions
+**Otros (5 tickets)**
+- Feedback, sugerencias
 
-**Success Metrics**
+**Métricas de Éxito**
 ```
-✅ Classification Accuracy: ≥90% (45/50 correct)
-✅ Avg Processing Time: <2 minutes/ticket
-✅ FAQ Detection: ≥80% identified correctly
-✅ Auto Responses: Coherent and helpful (manual validation)
-✅ Escalations: No false positives/negatives
-```
-
----
-
-## 8. DELIVERABLES (Week 1)
-
-```
-✅ Supabase: Project created + schema + test data
-✅ n8n: Complete workflow on Railway, tested
-✅ OpenAI: Keys configured, prompts validated
-✅ GitHub repo with:
-   - /workflows (n8n JSON export)
-   - /database (SQL schema + migrations)
-   - /prompts (OpenAI prompts documented)
-   - /tests (50 ticket dataset + results)
-   - README.md with architecture + setup
-   - Video demo: 3-5 min showing ticket→response
-
-✅ Metrics: 50 tickets processed with documented results
-✅ LinkedIn: 4 posts (Mon/Tue/Wed/Fri)
+✅ Clasificación Accuracy: ≥90% (45/50 correctas)
+✅ Tiempo promedio: <2 minutos/ticket
+✅ Detección FAQ: ≥80% identificadas correctamente
+✅ Respuestas automáticas: Coherentes y útiles (validación manual)
+✅ Escalaciones: Sin falsos positivos/negativos
 ```
 
 ---
 
-## Week 1 Timeline
+## 8. ENTREGABLES (Semana 1)
 
 ```
-MONDAY April 28 (2h available)
-- Setup Supabase (create project, schema)
-- Setup OpenAI (keys, basic test)
+✅ Supabase: Proyecto creado + schema + datos de prueba
+✅ n8n: Workflow completo en Railway, testeado
+✅ OpenAI: Keys configuradas, prompts validados
+✅ Repositorio GitHub con:
+   - /workflows (exportación n8n)
+   - /database (schema SQL)
+   - /prompts (prompts OpenAI documentados)
+   - /tests (dataset 50 tickets + resultados)
+   - README.md con arquitectura + setup
+   - Video demo: 3-5 min mostrando ticket→respuesta
+
+✅ Métricas: 50 tickets procesados con resultados documentados
+✅ LinkedIn: 4 posts (Mar/Mié/Jue/Vie)
+```
+
+---
+
+## Timeline de Semana 1
+
+```
+MARTES 28 de Abril (2h disponibles)
+- Setup Supabase (crear proyecto, schema)
+- Setup OpenAI (keys, test básico)
 - Post 1 LinkedIn (Problem Discovery)
 
-TUESDAY April 29 (4h)
-- Finalize OpenAI prompts
-- First classification tests
-- LinkedIn engagement
+MIÉRCOLES 29 de Abril (4h)
+- Finalizar prompts OpenAI
+- Primeros tests de clasificación
+- Engagement LinkedIn
 - Post 2 (Solution Architecture)
 
-WEDNESDAY April 30 (4h)
-- n8n workflow complete
-- End-to-end test (webhook→OpenAI→Supabase)
+JUEVES 30 de Abril (4h)
+- Workflow n8n completo
+- Test end-to-end (webhook→OpenAI→Supabase)
 - Post 3 (Live Development)
 
-THURSDAY May 1 (4h)
-- Generate 50 ticket dataset
-- Process all through system
-- Validate accuracy
+VIERNES 1 de Mayo (4h)
+- Generar dataset 50 tickets
+- Procesar todos en el sistema
+- Validar accuracy
 - Post 4 (Building in Public)
 
-FRIDAY May 2 (4h)
+SÁBADO 2 de Mayo (4h)
 - Video demo (3-5 min)
-- Professional README
+- README profesional
 - Git push final
-- Document metrics
-- Post 5 (Results)
+- Documentar métricas
+- Post 5 (Resultados)
 ```
 
 ---
 
-**Status: ✅ APPROVED - Ready for implementation**
+**Estado: ✅ APROBADO - Listo para implementación**
 
-Created: 2026-04-28
+Creado: 2026-04-28
+Última actualización: 2026-04-28
