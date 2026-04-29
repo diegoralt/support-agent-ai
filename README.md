@@ -1,6 +1,6 @@
 # 🤖 Agente de Soporte AI - Sistema Inteligente de Triaje de Tickets
 
-**Estado**: 🔨 En Desarrollo (Semana 1 de 4) | **Building in public** en [LinkedIn](https://www.linkedin.com/in/diego-reyes-altamirano/)
+**Estado**: 🔨 En Desarrollo | **Building in public** en [LinkedIn](https://www.linkedin.com/in/diego-reyes-altamirano/)
 
 ## 🎯 Resumen
 
@@ -69,12 +69,12 @@ Objetivo:
 | SLA de respuesta | 30 min | 5 min | **6x más rápido** |
 | Tasa automatización | 0% | 90% | **90% automatizado** |
 
-## 🚀 Timeline de Desarrollo
+## 🚀 Fases de Desarrollo
 
-- **Semana 1** (28 abril - 2 mayo): Desarrollo MVP + validación
-- **Validación**: 50 tickets de prueba, 90%+ de precisión
-- **Video Demo**: Viernes, 2 de mayo
-- **Posts**: Journey documentado diariamente en LinkedIn
+1. **Setup & Configuration**: Supabase, OpenAI, n8n
+2. **Core Development**: Motor de clasificación, matching FAQ, generación de respuestas
+3. **Testing & Validation**: 50 ticket dataset, validación de accuracy
+4. **Documentation & Deployment**: README, arquitectura, deployment
 
 ## 📚 Estructura del Proyecto
 

@@ -337,38 +337,33 @@ Tone: Empático, claro, sin jargón técnico innecesario.
 
 ---
 
-## Timeline de Semana 1
+## Development Timeline
 
-```
-MARTES 28 de Abril (2h disponibles)
-- Setup Supabase (crear proyecto, schema)
-- Setup OpenAI (keys, test básico)
-- Post 1 LinkedIn (Problem Discovery)
+Este proyecto se desarrolla en fases iterativas enfocadas en calidad y validación:
 
-MIÉRCOLES 29 de Abril (4h)
-- Finalizar prompts OpenAI
-- Primeros tests de clasificación
-- Engagement LinkedIn
-- Post 2 (Solution Architecture)
+### Phase 1: Setup & Configuration
+- Supabase project creation
+- Database schema implementation
+- OpenAI API configuration
+- n8n workflow foundation
 
-JUEVES 30 de Abril (4h)
-- Workflow n8n completo
-- Test end-to-end (webhook→OpenAI→Supabase)
-- Post 3 (Live Development)
+### Phase 2: Core Development
+- OpenAI classification engine
+- FAQ matching and retrieval
+- Auto-response generation
+- n8n workflow completion
 
-VIERNES 1 de Mayo (4h)
-- Generar dataset 50 tickets
-- Procesar todos en el sistema
-- Validar accuracy
-- Post 4 (Building in Public)
+### Phase 3: Testing & Validation
+- 50 ticket dataset generation
+- System-wide testing
+- Accuracy validation (target: 90%+)
+- Performance metrics measurement
 
-SÁBADO 2 de Mayo (4h)
-- Video demo (3-5 min)
-- README profesional
-- Git push final
-- Documentar métricas
-- Post 5 (Resultados)
-```
+### Phase 4: Documentation & Deployment
+- Comprehensive README updates
+- Architecture documentation
+- Code cleanup and optimization
+- Production-ready deployment
 
 ---
 
