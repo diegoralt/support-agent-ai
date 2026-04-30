@@ -1,0 +1,452 @@
+[
+  {
+    "id": 1,
+    "category_type": "HAPPY_PATH",
+    "subject": "¿Cómo cambio mi plan de suscripción?",
+    "message": "Hola, quiero cambiar de plan Basic a Professional. ¿Cuál es el proceso? ¿Se me prorratea el pago?",
+    "customer_id": "cust_001",
+    "expected_category": "Billing",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 2,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Error al guardar proyectos",
+    "message": "Cuando intento guardar un proyecto, recibo error 500. He intentado 3 veces y no funciona. Esto bloquea mi trabajo.",
+    "customer_id": "cust_002",
+    "expected_category": "Bug",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 3,
+    "category_type": "HAPPY_PATH",
+    "subject": "Solicitud: Exportar a PDF",
+    "message": "Sería muy útil poder exportar los reportes a PDF. ¿Es algo que piensan implementar?",
+    "customer_id": "cust_003",
+    "expected_category": "Feature Request",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 4,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Factura duplicada en mi cuenta",
+    "message": "Veo dos cargos de $99 este mes pero solo tengo una suscripción. Por favor revisar.",
+    "customer_id": "cust_004",
+    "expected_category": "Billing",
+    "expected_priority": "High"
+  },
+  {
+    "id": 5,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "La API no responde",
+    "message": "El endpoint /api/v1/projects está retornando timeout. Los otros endpoints funcionan. Necesito esto urgente para producción.",
+    "customer_id": "cust_005",
+    "expected_category": "Bug",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 6,
+    "category_type": "HAPPY_PATH",
+    "subject": "Pregunta sobre planes Enterprise",
+    "message": "¿Cuáles son las características incluidas en el plan Enterprise? ¿Tiene soporte 24/7?",
+    "customer_id": "cust_006",
+    "expected_category": "Billing",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 7,
+    "category_type": "HAPPY_PATH",
+    "subject": "Bug: Avatar no se actualiza",
+    "message": "Cambié mi foto de perfil pero sigue mostrando la vieja. Hice refresh pero nada. Borré caché y tampoco funciona.",
+    "customer_id": "cust_007",
+    "expected_category": "Bug",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 8,
+    "category_type": "HAPPY_PATH",
+    "subject": "Integración con Slack",
+    "message": "¿Tienen planes de integrar con Slack? Eso facilitaría mucho nuestro workflow.",
+    "customer_id": "cust_008",
+    "expected_category": "Feature Request",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 9,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "Acceso denegado a datos de cliente",
+    "message": "No puedo acceder a mi historial de datos. Mensaje: \"Access Denied\". Mi cuenta fue creada hace 2 años y de repente no puedo ver nada.",
+    "customer_id": "cust_009",
+    "expected_category": "Technical",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 10,
+    "category_type": "HAPPY_PATH",
+    "subject": "Planes anuales - ¿hay descuento?",
+    "message": "Si me suscribo por un año completo, ¿hay algún descuento disponible?",
+    "customer_id": "cust_010",
+    "expected_category": "Billing",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 11,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "No puedo acceder a mi cuenta",
+    "message": "Cuando intento entrar con mi email y contraseña, dice que las credenciales son inválidas. Pero sé que están correctas. ¿Es un bug o problema de mi lado?",
+    "customer_id": "cust_011",
+    "expected_category": "Technical",
+    "expected_priority": "High"
+  },
+  {
+    "id": 12,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "El sistema está muy lento",
+    "message": "La plataforma tarda 30 segundos en cargar. Esto es insostenible para mi equipo. ¿Es problema conocido?",
+    "customer_id": "cust_012",
+    "expected_category": "Technical",
+    "expected_priority": "High"
+  },
+  {
+    "id": 13,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "URGENTE: Sistema caído",
+    "message": "¡¿QUÉ ESTÁ PASANDO?! El sistema completo está caído. Mis clientes no pueden acceder. NECESITO RESPUESTA INMEDIATA.",
+    "customer_id": "cust_013",
+    "expected_category": "Technical",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 14,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Problema con integración y facturación",
+    "message": "Intenté conectar mi sistema de CRM pero la integración falló. Además, ahora veo que hay un cargo extra en la factura. ¿Qué está pasando?",
+    "customer_id": "cust_014",
+    "expected_category": "Technical",
+    "expected_priority": "High"
+  },
+  {
+    "id": 15,
+    "category_type": "EDGE_CASE_POOR_INFO",
+    "subject": "No funciona",
+    "message": "Algo no funciona.",
+    "customer_id": "cust_015",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 16,
+    "category_type": "EDGE_CASE_POOR_INFO",
+    "subject": "Ayuda pls",
+    "message": "help pls no puedo q hago",
+    "customer_id": "cust_016",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 17,
+    "category_type": "EDGE_CASE_FALSE_CRITICAL",
+    "subject": "SISTEMA CAÍDO",
+    "message": "El botón de logout no funciona. Tengo que cerrar el navegador para salir.",
+    "customer_id": "cust_017",
+    "expected_category": "Bug",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 18,
+    "category_type": "EDGE_CASE_FALSE_NEGATIVE",
+    "subject": "Pregunta pequeña",
+    "message": "Mi cliente está completamente bloqueado y no puede hacer nada en la plataforma. Acceso 100% denegado a todas las funciones. Es la cuenta de mi CEO. AYUDA.",
+    "customer_id": "cust_018",
+    "expected_category": "Technical",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 19,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "Tercera vez que reporto esto",
+    "message": "Esta es la TERCERA VEZ que reporto este bug. Nadie responde. El problema de exportación sigue sin solucionarse después de 2 semanas. Estoy considerando cambiar de proveedor.",
+    "customer_id": "cust_019",
+    "expected_category": "Bug",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 20,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Pricing confusion y soporte",
+    "message": "No entiendo por qué se me está cobrando el plan Professional si tenía el Basic. Además, cuando contacté a soporte hace 3 días no me respondieron. Necesito que revisen ambas cosas.",
+    "customer_id": "cust_020",
+    "expected_category": "Billing",
+    "expected_priority": "High"
+  },
+  {
+    "id": 21,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "¿Cuándo se arregla el timeout?",
+    "message": "Desde ayer los reportes están tardando mucho más en generarse. ¿Es mantenimiento o bug?",
+    "customer_id": "cust_021",
+    "expected_category": "Technical",
+    "expected_priority": "High"
+  },
+  {
+    "id": 22,
+    "category_type": "EDGE_CASE_SPAM",
+    "subject": "Check this out",
+    "message": "Hey check this amazing opportunity http://bit.ly/scam123 you wont believe it",
+    "customer_id": "cust_022",
+    "expected_category": "Other",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 23,
+    "category_type": "EDGE_CASE_OFF_TOPIC",
+    "subject": "Consulta de negocio",
+    "message": "Estoy buscando un socio para una startup en IA. ¿Alguien interesado?",
+    "customer_id": "cust_023",
+    "expected_category": "Other",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 24,
+    "category_type": "EDGE_CASE_FALSE_NEGATIVE",
+    "subject": "Comentario",
+    "message": "La plataforma es muy bonita. Me encanta el diseño. Solo una cosa: el botón de delete está roto y no puedo eliminar nada en mi cuenta. Llevo 5 días esperando a que se resuelva porque necesito limpiar mis datos.",
+    "customer_id": "cust_024",
+    "expected_category": "Bug",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 25,
+    "category_type": "HAPPY_PATH",
+    "subject": "Cambio de email",
+    "message": "¿Cómo cambio el email asociado a mi cuenta?",
+    "customer_id": "cust_025",
+    "expected_category": "Technical",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 26,
+    "category_type": "EDGE_CASE_POOR_INFO",
+    "subject": "Error",
+    "message": "Me sale un error",
+    "customer_id": "cust_026",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 27,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Reset de contraseña no funciona",
+    "message": "Intenté hacer reset de contraseña pero no recibo el email. Miré en spam y no está. Luego intenté cambiar email pero tampoco funciona. Estoy bloqueado.",
+    "customer_id": "cust_027",
+    "expected_category": "Technical",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 28,
+    "category_type": "EDGE_CASE_FALSE_CRITICAL",
+    "subject": "CRÍTICO: Sistema bloqueado",
+    "message": "La interfaz se ve rara en Safari. Los botones están desalineados un poco.",
+    "customer_id": "cust_028",
+    "expected_category": "Bug",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 29,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "Esto es inaceptable",
+    "message": "Llevo 3 semanas con este problema. He abierto 5 tickets. Nadie soluciona nada. He gastado miles en esta plataforma y así es como me atienden. Voy a contar mi experiencia en redes sociales.",
+    "customer_id": "cust_029",
+    "expected_category": "Bug",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 30,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "Los reportes están mal",
+    "message": "Los números en los reportes no coinciden con lo que veo en el dashboard. ¿Es error del sistema o estoy usando mal?",
+    "customer_id": "cust_030",
+    "expected_category": "Bug",
+    "expected_priority": "High"
+  },
+  {
+    "id": 31,
+    "category_type": "HAPPY_PATH",
+    "subject": "¿Qué incluye el plan premium?",
+    "message": "Me interesa saber qué funcionalidades adicionales tiene el plan Premium respecto al Basic.",
+    "customer_id": "cust_031",
+    "expected_category": "Billing",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 32,
+    "category_type": "EDGE_CASE_POOR_INFO",
+    "subject": "Problema",
+    "message": "There is a problem",
+    "customer_id": "cust_032",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 33,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Migración de datos y nuevo plan",
+    "message": "Quiero cambiar de plan AND transferir todos mis proyectos de mi cuenta antigua a la nueva. ¿Cómo se hace eso? ¿Hay riesgo de perder datos?",
+    "customer_id": "cust_033",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 34,
+    "category_type": "EDGE_CASE_FALSE_CRITICAL",
+    "subject": "AYUDA URGENTE",
+    "message": "¿En qué idiomas está disponible la plataforma?",
+    "customer_id": "cust_034",
+    "expected_category": "Other",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 35,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Facturación y acceso - dos problemas",
+    "message": "Dos cosas: 1) Me están cobrando pero no puedo acceder a la plataforma (error 403), 2) El chat de soporte está offline. ¿Qué está pasando?",
+    "customer_id": "cust_035",
+    "expected_category": "Technical",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 36,
+    "category_type": "HAPPY_PATH",
+    "subject": "Cómo usar la API",
+    "message": "¿Dónde puedo encontrar la documentación de la API? Quiero integrar vuestra plataforma en mi aplicación.",
+    "customer_id": "cust_036",
+    "expected_category": "Technical",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 37,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "Insatisfecho con el servicio",
+    "message": "Cancelé mi suscripción hace 3 días pero sigo siendo cobrado. El sistema de cancelación NO FUNCIONA. Esto es un fraude.",
+    "customer_id": "cust_037",
+    "expected_category": "Billing",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 38,
+    "category_type": "EDGE_CASE_FALSE_NEGATIVE",
+    "subject": "Thanks for the great service",
+    "message": "Just wanted to say thanks! By the way, there's a small thing - when I do bulk upload, sometimes files randomly get deleted. It's happened 3 times now and I've lost important data. Otherwise love the product!",
+    "customer_id": "cust_038",
+    "expected_category": "Bug",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 39,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "Descargas no funcionan",
+    "message": "Cuando intento descargar mis archivos, me dice error. ¿Es porque llegué al límite de almacenamiento o es un bug?",
+    "customer_id": "cust_039",
+    "expected_category": "Technical",
+    "expected_priority": "High"
+  },
+  {
+    "id": 40,
+    "category_type": "HAPPY_PATH",
+    "subject": "Feature request: Dark mode",
+    "message": "¿Tienen planes de agregar dark mode? Estaría genial para trabajar de noche.",
+    "customer_id": "cust_040",
+    "expected_category": "Feature Request",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 41,
+    "category_type": "EDGE_CASE_POOR_INFO",
+    "subject": "No anda",
+    "message": "No funciona nada",
+    "customer_id": "cust_041",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 42,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Factura incorrecta y refund",
+    "message": "Me cobraron $500 en lugar de $50. Es obvio que es error. Necesito un refund INMEDIATO y una investigación de cómo pasó esto.",
+    "customer_id": "cust_042",
+    "expected_category": "Billing",
+    "expected_priority": "Critical"
+  },
+  {
+    "id": 43,
+    "category_type": "EDGE_CASE_FALSE_CRITICAL",
+    "subject": "EMERGENCIA",
+    "message": "¿Cuál es la política de privacidad?",
+    "customer_id": "cust_043",
+    "expected_category": "Other",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 44,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "Decepcionado",
+    "message": "Pagué por el plan premium hace 6 meses. Las funcionalidades prometidas no están implementadas. La última actualización fue hace 3 meses. Siento que estoy tirando dinero.",
+    "customer_id": "cust_044",
+    "expected_category": "Feature Request",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 45,
+    "category_type": "EDGE_CASE_AMBIGUITY",
+    "subject": "Sincronización entre dispositivos",
+    "message": "¿Por qué mis cambios en la web no se sincronizaron con la app mobile? ¿Es bug o feature no disponible?",
+    "customer_id": "cust_045",
+    "expected_category": "Bug",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 46,
+    "category_type": "HAPPY_PATH",
+    "subject": "Solicitud de feature: Comentarios en colaboración",
+    "message": "¿Podrían agregar la capacidad de dejar comentarios en los proyectos cuando colaboramos? Sería útil para feedback.",
+    "customer_id": "cust_046",
+    "expected_category": "Feature Request",
+    "expected_priority": "Low"
+  },
+  {
+    "id": 47,
+    "category_type": "EDGE_CASE_POOR_INFO",
+    "subject": "Doesn't work",
+    "message": "it dosent work",
+    "customer_id": "cust_047",
+    "expected_category": "Technical",
+    "expected_priority": "Medium"
+  },
+  {
+    "id": 48,
+    "category_type": "EDGE_CASE_FALSE_NEGATIVE",
+    "subject": "Question about storage",
+    "message": "Hi, just curious - I noticed that sometimes when I upload large files, they seem to disappear from my account after a week. Is that normal? Everything else works great!",
+    "customer_id": "cust_048",
+    "expected_category": "Bug",
+    "expected_priority": "High"
+  },
+  {
+    "id": 49,
+    "category_type": "EDGE_CASE_COMPLEXITY",
+    "subject": "Enterprise migration, pricing, y soporte SLA",
+    "message": "Queremos migrar 500 usuarios desde otra plataforma. Necesito: 1) Información sobre migración de datos, 2) Precio para 500 seats anuales, 3) Garantía de uptime del 99.9%.",
+    "customer_id": "cust_049",
+    "expected_category": "Billing",
+    "expected_priority": "High"
+  },
+  {
+    "id": 50,
+    "category_type": "EDGE_CASE_FRUSTRATION",
+    "subject": "Demanda de compensación",
+    "message": "Su sistema estuvo caído por 8 horas ayer. Perdí $10,000 en ventas. El tiempo de respuesta de soporte fue inaceptable. Exijo compensación y SLA garantizado.",
+    "customer_id": "cust_050",
+    "expected_category": "Technical",
+    "expected_priority": "Critical"
+  }
+]

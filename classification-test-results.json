@@ -1,0 +1,169 @@
+{
+  "timestamp": "2026-04-29T20:30:33.828291",
+  "model": "gpt-5.4-mini",
+  "total_tickets": 10,
+  "correct": 8,
+  "accuracy_percent": 80.0,
+  "results": [
+    {
+      "ticket_id": 1,
+      "subject": "¿Cómo cambio mi plan de suscripción?",
+      "result": {
+        "category": "Billing",
+        "priority": "Low",
+        "summary": "El cliente quiere cambiar su plan de suscripción de Basic a Professional y জানতে si aplica prorrateo.",
+        "can_auto_respond": true,
+        "reasoning": "Es una consulta sobre cambio de plan y facturación, sin indicar un problema técnico ni bloqueo. Normalmente puede responderse con información estándar de FAQs sobre actualización de suscripción y prorrateo."
+      },
+      "expected": {
+        "category": "Billing",
+        "priority": "Low"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 2,
+      "subject": "Error al guardar proyectos",
+      "result": {
+        "category": "Bug",
+        "priority": "Critical",
+        "summary": "El usuario recibe un error 500 al guardar un proyecto, lo que impide continuar con su trabajo.",
+        "can_auto_respond": false,
+        "reasoning": "Se trata de un fallo específico del sistema con error 500 al guardar, por lo que encaja como Bug. La incidencia bloquea el trabajo del cliente y afecta una función principal, así que la prioridad es Critical. No es adecuado responder solo con FAQ porque requiere revisión técnica."
+      },
+      "expected": {
+        "category": "Bug",
+        "priority": "Critical"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 3,
+      "subject": "Solicitud: Exportar a PDF",
+      "result": {
+        "category": "Feature Request",
+        "priority": "Low",
+        "summary": "El cliente solicita la posibilidad de exportar reportes a PDF y pregunta si está prevista su implementación.",
+        "can_auto_respond": true,
+        "reasoning": "Es una petición de nueva funcionalidad, no un error ni un problema de acceso. La prioridad es baja porque no bloquea el uso actual del producto y puede responderse con una respuesta estándar sobre el estado de la funcionalidad o cómo enviar feedback."
+      },
+      "expected": {
+        "category": "Feature Request",
+        "priority": "Low"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 4,
+      "subject": "Factura duplicada en mi cuenta",
+      "result": {
+        "category": "Billing",
+        "priority": "High",
+        "summary": "El cliente reporta dos cargos de $99 en el mismo mes pese a tener una sola suscripción y solicita revisión.",
+        "can_auto_respond": false,
+        "reasoning": "Es un problema de facturación relacionado con cargos duplicados. Impacta significativamente al cliente y requiere revisión manual de pagos y suscripción, por lo que no es adecuado para respuesta automática basada solo en FAQs."
+      },
+      "expected": {
+        "category": "Billing",
+        "priority": "High"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 5,
+      "subject": "La API no responde",
+      "result": {
+        "category": "Technical",
+        "priority": "High",
+        "summary": "El endpoint /api/v1/projects está devolviendo timeout en producción, जबकि otros endpoints siguen funcionando.",
+        "can_auto_respond": false,
+        "reasoning": "Se trata de un problema técnico de acceso a una funcionalidad específica de la API. No parece un bug confirmado sino un fallo operativo o de rendimiento. La prioridad es High porque afecta producción y requiere atención urgente, pero hay indicio de que el resto de la API funciona, por lo que no es un bloqueo total."
+      },
+      "expected": {
+        "category": "Bug",
+        "priority": "Critical"
+      },
+      "correct": false
+    },
+    {
+      "ticket_id": 6,
+      "subject": "Pregunta sobre planes Enterprise",
+      "result": {
+        "category": "Billing",
+        "priority": "Low",
+        "summary": "El cliente pregunta por las características incluidas en el plan Enterprise y si incluye soporte 24/7.",
+        "can_auto_respond": true,
+        "reasoning": "Es una consulta sobre planes y servicios de suscripción, por lo que encaja en Billing. No reporta un problema ni bloqueo, así que la prioridad es baja. Puede responderse con información estándar de FAQs sobre el plan Enterprise."
+      },
+      "expected": {
+        "category": "Billing",
+        "priority": "Low"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 7,
+      "subject": "Bug: Avatar no se actualiza",
+      "result": {
+        "category": "Bug",
+        "priority": "Medium",
+        "summary": "La foto de perfil no se actualiza y sigue mostrando la imagen anterior incluso tras refrescar y borrar caché.",
+        "can_auto_respond": true,
+        "reasoning": "Es un fallo específico de comportamiento inesperado en la actualización del avatar, por lo que encaja como Bug. No bloquea el trabajo principal, así que la prioridad es Medium. Puede responderse automáticamente con pasos básicos de solución como esperar propagación, revisar formato de imagen o volver a subirla."
+      },
+      "expected": {
+        "category": "Bug",
+        "priority": "Medium"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 8,
+      "subject": "Integración con Slack",
+      "result": {
+        "category": "Feature Request",
+        "priority": "Low",
+        "summary": "El cliente पूछe si hay planes de integración con Slack para mejorar su flujo de trabajo.",
+        "can_auto_respond": true,
+        "reasoning": "Es una solicitud de nueva funcionalidad, no un error ni un problema de facturación. Puede responderse con una respuesta estándar indicando que se registrará la sugerencia o compartiendo el estado de roadmap si existe."
+      },
+      "expected": {
+        "category": "Feature Request",
+        "priority": "Low"
+      },
+      "correct": true
+    },
+    {
+      "ticket_id": 9,
+      "subject": "Acceso denegado a datos de cliente",
+      "result": {
+        "category": "Technical",
+        "priority": "High",
+        "summary": "El usuario no puede acceder a su historial de datos y recibe el error \"Access Denied\" en una cuenta previamente funcional.",
+        "can_auto_respond": false,
+        "reasoning": "Se trata de un problema técnico de acceso a una funcionalidad existente. No parece ser una simple consulta de FAQ porque implica un error de permisos o acceso que requiere revisión. Es High porque afecta significativamente la experiencia y bloquea el acceso a datos, aunque no se indica una caída total de la cuenta."
+      },
+      "expected": {
+        "category": "Technical",
+        "priority": "Critical"
+      },
+      "correct": false
+    },
+    {
+      "ticket_id": 10,
+      "subject": "Planes anuales - ¿hay descuento?",
+      "result": {
+        "category": "Billing",
+        "priority": "Low",
+        "summary": "El cliente pregunta si existe descuento al suscribirse por un año completo.",
+        "can_auto_respond": true,
+        "reasoning": "Es una consulta sobre precios y planes de suscripción, sin indicar un problema técnico ni urgencia. Puede responderse con información estándar de FAQs sobre facturación y descuentos."
+      },
+      "expected": {
+        "category": "Billing",
+        "priority": "Low"
+      },
+      "correct": true
+    }
+  ]
+}

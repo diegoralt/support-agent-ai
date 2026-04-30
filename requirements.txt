@@ -1,0 +1,15 @@
+# OpenAI API
+openai>=1.0.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Data handling
+requests>=2.31.0
+
+# Development/Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Utilities
+pydantic>=2.0.0
