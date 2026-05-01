@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-29T20:26:23.584194",
+  "timestamp": "2026-05-01T00:22:18.838060",
   "model": "gpt-5.4-mini",
   "total_tickets": 50,
   "correct": 43,
@@ -50,9 +50,19 @@
       "result": {
         "category": "Billing",
         "priority": "Low",
-        "summary": "El cliente quiere cambiar su plan de suscripción de Basic a Professional y pregunta si aplica prorrateo.",
-        "can_auto_respond": true,
-        "reasoning": "Es una consulta de facturación/suscripción sin bloqueo ni frustración. Es un caso típico de FAQ sobre cambio de plan y prorrateo, por lo que puede responderse automáticamente."
+        "is_faq": true,
+        "faq_keywords": [
+          "cambiar plan",
+          "suscripción",
+          "Basic",
+          "Professional",
+          "prorrateo",
+          "pago"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "El cliente pregunta cómo cambiar su plan de suscripción y si aplica prorrateo.",
+        "reasoning": "Es una consulta de facturación/suscripción sin indicios de bloqueo, error o frustración. Probablemente se puede responder con una FAQ sobre cambio de plan y prorrateo."
       },
       "expected": {
         "category": "Billing",
@@ -67,9 +77,17 @@
       "result": {
         "category": "Bug",
         "priority": "Critical",
-        "summary": "Error 500 al guardar proyectos; el usuario ha intentado 3 veces y el problema bloquea su trabajo.",
-        "can_auto_respond": false,
-        "reasoning": "Es un fallo específico de la aplicación al guardar (error 500), por lo que corresponde a Bug. La prioridad es Critical porque hay bloqueo total del trabajo, error en producción y múltiples intentos fallidos (3 veces). No es un caso adecuado para respuesta automática porque requiere revisión técnica."
+        "is_faq": false,
+        "faq_keywords": [
+          "error 500",
+          "guardar proyecto",
+          "bloquea mi trabajo",
+          "intento 3 veces"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
+        "summary": "Error 500 al guardar proyectos; bloquea el trabajo y ya hubo 3 intentos fallidos.",
+        "reasoning": "Es un fallo específico de aplicación al guardar, por lo que corresponde a Bug. La presencia de error 500, múltiples intentos fallidos y bloqueo total del trabajo eleva la prioridad a Critical."
       },
       "expected": {
         "category": "Bug",
@@ -84,9 +102,17 @@
       "result": {
         "category": "Feature Request",
         "priority": "Low",
+        "is_faq": true,
+        "faq_keywords": [
+          "exportar",
+          "PDF",
+          "reportes",
+          "implementar"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "El cliente solicita la posibilidad de exportar reportes a PDF como nueva funcionalidad.",
-        "can_auto_respond": true,
-        "reasoning": "Es una solicitud de mejora/nueva característica, sin indicios de bloqueo, error o frustración. Puede responderse con una respuesta automática de FAQ sobre roadmap o sugerencia de producto."
+        "reasoning": "Es una solicitud clara de mejora/funcionalidad nueva, sin indicios de bloqueo, error o urgencia. Puede responderse con una respuesta automática sobre roadmap o disponibilidad de la función."
       },
       "expected": {
         "category": "Feature Request",
@@ -101,9 +127,18 @@
       "result": {
         "category": "Billing",
         "priority": "High",
-        "summary": "El cliente reporta dos cargos de $99 en el mes pese a tener una sola suscripción.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema de facturación con posible cargo duplicado. No hay evidencia explícita de fraude ni de bloqueo total, pero sí un impacto financiero importante que requiere revisión manual."
+        "is_faq": false,
+        "faq_keywords": [
+          "factura duplicada",
+          "dos cargos",
+          "suscripción",
+          "cargos",
+          "revisar"
+        ],
+        "confidence": 0.98,
+        "next_action": "human_review",
+        "summary": "El cliente reporta dos cargos de $99 en el mismo mes pese a tener una sola suscripción.",
+        "reasoning": "Es un problema de facturación claro (cargos duplicados). No parece un caso de FAQ porque requiere revisión específica de la cuenta y posibles ajustes o reembolso. La prioridad es High por posible cobro incorrecto que impacta significativamente al cliente."
       },
       "expected": {
         "category": "Billing",
@@ -118,9 +153,18 @@
       "result": {
         "category": "Bug",
         "priority": "Critical",
+        "is_faq": false,
+        "faq_keywords": [
+          "API",
+          "endpoint",
+          "timeout",
+          "producción",
+          "api/v1/projects"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
         "summary": "El endpoint /api/v1/projects está devolviendo timeout mientras otros endpoints funcionan, afectando producción.",
-        "can_auto_respond": false,
-        "reasoning": "Es un fallo específico de API/endpoint, por lo que corresponde a Bug. El timeout en producción bloquea el trabajo y el usuario indica urgencia para producción, lo que eleva la prioridad a Critical. No es un caso apto para respuesta automática porque requiere revisión técnica."
+        "reasoning": "Es un fallo específico de API, por lo que encaja mejor como Bug. La mención de timeout en producción indica impacto crítico y bloqueo potencial del trabajo. No es apto para respuesta automática porque requiere revisión técnica."
       },
       "expected": {
         "category": "Bug",
@@ -135,9 +179,16 @@
       "result": {
         "category": "Billing",
         "priority": "Low",
-        "summary": "Consulta sobre las características incluidas en el plan Enterprise y si ofrece soporte 24/7.",
-        "can_auto_respond": true,
-        "reasoning": "Es una pregunta general sobre planes y características de suscripción, por lo que encaja en Billing. No hay indicios de bloqueo, error ni frustración, así que la prioridad es Low. Puede responderse automáticamente con información de FAQ sobre planes Enterprise."
+        "is_faq": true,
+        "faq_keywords": [
+          "plan Enterprise",
+          "características incluidas",
+          "soporte 24/7"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "El cliente pregunta por las características del plan Enterprise y si incluye soporte 24/7.",
+        "reasoning": "Es una consulta sobre planes y funcionalidades incluidas, por lo que corresponde a Billing. No hay indicios de problema, bloqueo ni frustración, así que la prioridad es Low. Es una pregunta típica de FAQ y puede responderse automáticamente."
       },
       "expected": {
         "category": "Billing",
@@ -152,9 +203,18 @@
       "result": {
         "category": "Bug",
         "priority": "Medium",
-        "summary": "La foto de perfil no se actualiza y sigue mostrando la imagen anterior incluso después de refrescar y borrar caché.",
-        "can_auto_respond": true,
-        "reasoning": "Es un fallo específico de la aplicación relacionado con la actualización del avatar, por lo que corresponde a Bug. No hay bloqueo total, pérdida de datos ni frustración extrema; afecta una funcionalidad menor, así que la prioridad es Medium. Puede responderse con una FAQ o pasos estándar de solución."
+        "is_faq": false,
+        "faq_keywords": [
+          "avatar",
+          "foto de perfil",
+          "no se actualiza",
+          "refresh",
+          "caché"
+        ],
+        "confidence": 0.96,
+        "next_action": "technical_escalation",
+        "summary": "La foto de perfil/avatar no se actualiza y sigue mostrando la versión anterior pese a refrescar y borrar caché.",
+        "reasoning": "Es un fallo específico de la aplicación relacionado con una funcionalidad concreta (actualización de avatar), por lo que encaja como Bug. No hay indicios de bloqueo total, pérdida de datos ni frustración extrema, así que la prioridad es Medium. No parece responderse solo con FAQ porque ya intentó acciones básicas sin resolverlo."
       },
       "expected": {
         "category": "Bug",
@@ -169,9 +229,17 @@
       "result": {
         "category": "Feature Request",
         "priority": "Low",
+        "is_faq": false,
+        "faq_keywords": [
+          "Slack",
+          "integrar",
+          "planes",
+          "workflow"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "El cliente pregunta si hay planes para integrar la plataforma con Slack.",
-        "can_auto_respond": true,
-        "reasoning": "Es una solicitud de nueva funcionalidad, no un problema técnico ni de facturación. No hay señales de bloqueo, urgencia ni frustración; puede responderse con una FAQ o respuesta estándar sobre roadmap/integraciones."
+        "reasoning": "Es una solicitud de nueva funcionalidad/mejora, no un problema técnico ni de facturación. No hay bloqueo, frustración ni urgencia, por lo que la prioridad es baja. Puede responderse con una respuesta automática si existe FAQ sobre integraciones o roadmap."
       },
       "expected": {
         "category": "Feature Request",
@@ -186,9 +254,18 @@
       "result": {
         "category": "Technical",
         "priority": "Critical",
-        "summary": "El usuario no puede acceder a su historial de datos y recibe un mensaje de acceso denegado.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema de acceso/autenticación con bloqueo total para ver datos, lo que encaja en Technical. La presencia de \"Access Denied\" indica acceso denegado, que se clasifica como Critical porque bloquea el trabajo. No es un caso de FAQ simple porque requiere revisión de permisos o cuenta."
+        "is_faq": false,
+        "faq_keywords": [
+          "access denied",
+          "no puedo acceder",
+          "historial de datos",
+          "cuenta",
+          "ver nada"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
+        "summary": "El usuario no puede acceder a su historial de datos por un error de acceso denegado.",
+        "reasoning": "Es un problema técnico de autenticación/acceso. La frase 'Access Denied' indica bloqueo total para ver datos, lo que encaja con prioridad Critical. No parece resolverse con FAQ y requiere escalación técnica inmediata."
       },
       "expected": {
         "category": "Technical",
@@ -203,9 +280,17 @@
       "result": {
         "category": "Billing",
         "priority": "Low",
-        "summary": "Consulta sobre si existe descuento para suscripción anual.",
-        "can_auto_respond": true,
-        "reasoning": "Es una pregunta general sobre planes y descuentos de facturación, sin indicios de bloqueo, error o urgencia. Puede responderse automáticamente con información de FAQs o políticas de precios."
+        "is_faq": true,
+        "faq_keywords": [
+          "plan anual",
+          "descuento",
+          "suscripción",
+          "facturación"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "El cliente pregunta si existe descuento al suscribirse por un año completo.",
+        "reasoning": "Es una consulta simple sobre planes y descuentos, por lo que corresponde a Billing. No hay indicios de bloqueo, error o frustración, así que la prioridad es Low. Puede responderse con una FAQ o respuesta automática."
       },
       "expected": {
         "category": "Billing",
@@ -220,9 +305,18 @@
       "result": {
         "category": "Technical",
         "priority": "Critical",
-        "summary": "El usuario no puede acceder a su cuenta porque el inicio de sesión falla con credenciales inválidas.",
-        "can_auto_respond": true,
-        "reasoning": "Es un problema de autenticación/acceso, por lo que corresponde a Technical. La imposibilidad de entrar a la cuenta bloquea el trabajo, así que la prioridad es Critical. Puede responderse automáticamente con pasos típicos de recuperación de acceso o verificación de credenciales."
+        "is_faq": true,
+        "faq_keywords": [
+          "acceso",
+          "credenciales inválidas",
+          "login",
+          "contraseña",
+          "email"
+        ],
+        "confidence": 0.97,
+        "next_action": "auto_response",
+        "summary": "El usuario no puede acceder a su cuenta porque el sistema rechaza sus credenciales como inválidas.",
+        "reasoning": "Es un problema de autenticación/acceso, por lo que corresponde a Technical. Según las reglas, el acceso denegado o autenticación fallida es Critical porque bloquea al usuario. Además, suele poder resolverse con una respuesta automática tipo FAQ (verificar credenciales, reset de contraseña, revisar mayúsculas, etc.)."
       },
       "expected": {
         "category": "Technical",
@@ -237,9 +331,18 @@
       "result": {
         "category": "Technical",
         "priority": "High",
-        "summary": "La plataforma presenta lentitud severa y tarda 30 segundos en cargar, afectando el trabajo del equipo.",
-        "can_auto_respond": true,
-        "reasoning": "Se trata de un problema de performance general, que encaja en Technical. La lentitud de 30 segundos impacta significativamente la experiencia y puede tener workaround limitado, por lo que la prioridad es High. No hay indicios de bloqueo total, pérdida de datos ni error crítico. Puede responderse automáticamente con una FAQ sobre lentitud y pasos básicos de diagnóstico."
+        "is_faq": false,
+        "faq_keywords": [
+          "lento",
+          "carga",
+          "30 segundos",
+          "rendimiento",
+          "plataforma"
+        ],
+        "confidence": 0.96,
+        "next_action": "technical_escalation",
+        "summary": "La plataforma presenta lentitud severa al cargar, con tiempos de 30 segundos, afectando al equipo.",
+        "reasoning": "Es un problema técnico de performance degradada. La lentitud de 30 segundos impacta significativamente la experiencia y puede afectar a varios usuarios, por lo que corresponde prioridad High. No parece responderse solo con FAQ."
       },
       "expected": {
         "category": "Technical",
@@ -254,9 +357,17 @@
       "result": {
         "category": "Technical",
         "priority": "Critical",
+        "is_faq": false,
+        "faq_keywords": [
+          "sistema caído",
+          "no pueden acceder",
+          "acceso",
+          "urgente"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
         "summary": "El sistema completo está caído y los clientes no pueden acceder.",
-        "can_auto_respond": false,
-        "reasoning": "Es un incidente técnico grave en producción que bloquea el acceso de múltiples usuarios. El tono es muy frustrado y exige respuesta inmediata, lo que refuerza la prioridad Critical. No es apto para respuesta automática porque requiere revisión urgente."
+        "reasoning": "Es un problema técnico grave en producción que bloquea el trabajo y afecta a múltiples usuarios. El tono es de alta frustración y solicita respuesta inmediata, lo que eleva la prioridad a Critical."
       },
       "expected": {
         "category": "Technical",
@@ -271,9 +382,18 @@
       "result": {
         "category": "Technical",
         "priority": "High",
-        "summary": "Falló la integración con el CRM y además aparece un cargo extra en la factura.",
-        "can_auto_respond": false,
-        "reasoning": "El problema técnico es առաջնario por la mención de integración fallida, por lo que se clasifica como Technical según la regla de prioridad técnica sobre billing. La prioridad es High porque afecta una integración importante y además hay un cargo extra que requiere revisión, aunque no se indica bloqueo total ni fraude explícito. No es adecuado responder solo con FAQ porque hay dos incidencias específicas que requieren revisión manual."
+        "is_faq": false,
+        "faq_keywords": [
+          "integración",
+          "CRM",
+          "facturación",
+          "cargo extra",
+          "factura"
+        ],
+        "confidence": 0.95,
+        "next_action": "technical_escalation",
+        "summary": "Fallo de integración con CRM y cargo extra en la factura.",
+        "reasoning": "Aunque menciona facturación, el problema técnico de integración es առաջնario según la regla de prioridad. La integración falló y además hay un cargo extra, lo que requiere revisión humana; no parece un caso resoluble con FAQ."
       },
       "expected": {
         "category": "Technical",
@@ -288,9 +408,15 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
+        "is_faq": true,
+        "faq_keywords": [
+          "no funciona",
+          "algo no funciona"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "El cliente indica de forma vaga que algo no funciona, sin más contexto.",
-        "can_auto_respond": true,
-        "reasoning": "Es un mensaje genérico sin detalles técnicos ni evidencia de bloqueo. Según la regla de mensajes vagos, se clasifica como Technical con prioridad Medium. Puede responderse automáticamente pidiendo más información básica."
+        "reasoning": "Es un mensaje técnico vago sin detalles adicionales. Según la restricción, 'No funciona' y expresiones similares se clasifican como Technical/Medium y no se escalan. Puede responderse con una respuesta automática pidiendo más información."
       },
       "expected": {
         "category": "Technical",
@@ -305,9 +431,16 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
-        "summary": "El cliente solicita ayuda de forma vaga y no indica el problema específico.",
-        "can_auto_respond": true,
-        "reasoning": "El mensaje es demasiado vago ('help pls no puedo q hago') y no aporta contexto técnico ni menciona un bloqueo claro o una categoría específica. Según la regla de mensajes vagos, se clasifica como Technical con prioridad Medium. Puede responderse automáticamente con una solicitud de más detalles o pasos básicos de diagnóstico."
+        "is_faq": true,
+        "faq_keywords": [
+          "help",
+          "no puedo",
+          "q hago"
+        ],
+        "confidence": 0.96,
+        "next_action": "auto_response",
+        "summary": "El usuario solicita ayuda de forma vaga y dice que no puede hacer algo, sin dar contexto específico.",
+        "reasoning": "Es un mensaje técnico vago sin detalles concretos. Según la restricción, 'no puedo' y 'help pls' sin contexto se clasifican como Technical/Medium y no se escalan. Puede responderse con una FAQ o guía automática."
       },
       "expected": {
         "category": "Technical",
@@ -322,9 +455,16 @@
       "result": {
         "category": "Bug",
         "priority": "Medium",
+        "is_faq": false,
+        "faq_keywords": [
+          "logout",
+          "botón",
+          "cerrar navegador"
+        ],
+        "confidence": 0.96,
+        "next_action": "technical_escalation",
         "summary": "El botón de logout no funciona y el usuario debe cerrar el navegador para salir.",
-        "can_auto_respond": true,
-        "reasoning": "Se trata de un fallo específico de funcionalidad en la aplicación (logout no funciona), por lo que encaja mejor como Bug. La prioridad es Medium porque afecta la experiencia pero no indica bloqueo total ni pérdida de datos. El asunto en mayúsculas sugiere urgencia, pero el problema descrito no es crítico. Puede responderse con una FAQ o respuesta automática básica sobre pasos de solución o reporte del incidente."
+        "reasoning": "Es un fallo específico de la aplicación (botón de logout) y no un problema de acceso o facturación. No parece bloquear el trabajo completo, pero sí reduce funcionalidad, por lo que corresponde prioridad Medium. El asunto exagera el impacto, pero el mensaje describe un problema concreto sin señales de urgencia crítica."
       },
       "expected": {
         "category": "Bug",
@@ -339,9 +479,17 @@
       "result": {
         "category": "Technical",
         "priority": "Critical",
+        "is_faq": false,
+        "faq_keywords": [
+          "acceso denegado",
+          "bloqueado",
+          "cuenta CEO",
+          "no puede hacer nada"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
         "summary": "La cuenta del CEO está completamente bloqueada con acceso denegado a todas las funciones.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema de acceso/autenticación con bloqueo total del trabajo, lo que encaja en Technical y Critical. Aunque el asunto es pequeño, el mensaje describe un bloqueo completo y urgente. No es adecuado para respuesta automática porque requiere revisión inmediata."
+        "reasoning": "Es un problema técnico de acceso/autenticación con bloqueo total del trabajo, lo que lo hace crítico. Aunque el asunto sea pequeño, el mensaje indica una situación grave y urgente que no puede resolverse con FAQ."
       },
       "expected": {
         "category": "Technical",
@@ -356,9 +504,18 @@
       "result": {
         "category": "Bug",
         "priority": "Critical",
-        "summary": "Bug de exportación sin resolver desde hace 2 semanas, reportado por tercera vez, con riesgo de churn.",
-        "can_auto_respond": false,
-        "reasoning": "Se trata de un bug específico de exportación. La prioridad escala a Critical por la regla de frustración: es la tercera vez que lo reporta, lleva 2 semanas sin solución y menciona que está considerando cambiar de proveedor, lo que indica alta frustración y problema serio persistente."
+        "is_faq": false,
+        "faq_keywords": [
+          "tercera vez",
+          "bug",
+          "exportación",
+          "2 semanas",
+          "cambiar de proveedor"
+        ],
+        "confidence": 0.98,
+        "next_action": "leadership_escalation",
+        "summary": "Bug de exportación sin resolver desde hace 2 semanas, reportado por tercera vez, con amenaza de cambio de proveedor.",
+        "reasoning": "Se trata de un bug específico de exportación. La prioridad es Critical por la repetición del reporte, la duración de 2 semanas sin solución y la clara frustración del cliente con intención de cambiar de proveedor, lo que activa la regla de escalación por frustración."
       },
       "expected": {
         "category": "Bug",
@@ -373,9 +530,19 @@
       "result": {
         "category": "Billing",
         "priority": "High",
-        "summary": "El cliente reporta un cobro inesperado del plan Professional en lugar del Basic y menciona falta de respuesta de soporte desde hace 3 días.",
-        "can_auto_respond": false,
-        "reasoning": "El tema principal es de facturación/precios, por lo que corresponde a Billing. La prioridad es High porque hay un posible cobro incorrecto y el cliente indica que lleva 3 días sin respuesta, lo que aumenta la urgencia, aunque no menciona fraude ni una pérdida crítica confirmada. No es adecuado responder solo con FAQ porque requiere revisión de la cuenta y del cobro."
+        "is_faq": false,
+        "faq_keywords": [
+          "pricing",
+          "cobro",
+          "plan Professional",
+          "plan Basic",
+          "soporte",
+          "3 días"
+        ],
+        "confidence": 0.96,
+        "next_action": "human_review",
+        "summary": "El cliente reporta un cobro inesperado del plan Professional en lugar del Basic y además indica falta de respuesta del soporte desde hace 3 días.",
+        "reasoning": "La consulta principal es de facturación/suscripción, por lo que corresponde a Billing. La prioridad es High porque hay un problema de cobro que afecta al cliente y además menciona que lleva 3 días sin respuesta, lo que aumenta la urgencia, aunque no se describe fraude ni bloqueo total. No parece responderse solo con FAQ porque requiere revisión de la cuenta y del caso de soporte."
       },
       "expected": {
         "category": "Billing",
@@ -390,9 +557,18 @@
       "result": {
         "category": "Technical",
         "priority": "High",
-        "summary": "Los reportes tardan mucho más en generarse desde ayer; el cliente pregunta si se debe a mantenimiento o a un bug.",
-        "can_auto_respond": true,
-        "reasoning": "Se trata de un problema de performance/timeout en generación de রিপোর্টes, lo que encaja como Technical. La degradación desde ayer sugiere impacto real pero no bloqueo total, por lo que la prioridad es High. No hay señales de acceso denegado, pérdida de datos ni frustración extrema. Puede responderse automáticamente con una FAQ sobre tiempos de procesamiento, mantenimiento y pasos básicos de verificación."
+        "is_faq": false,
+        "faq_keywords": [
+          "timeout",
+          "reportes lentos",
+          "mantenimiento",
+          "bug",
+          "rendimiento"
+        ],
+        "confidence": 0.92,
+        "next_action": "technical_escalation",
+        "summary": "Los reportes tardan mucho más en generarse desde ayer, indicando un problema de rendimiento o timeout.",
+        "reasoning": "Se trata de un problema técnico de performance/degradación con impacto en reportes. No es una solicitud de facturación ni una feature request. La mención de 'desde ayer' sugiere persistencia reciente, y el timeout/lentitud encaja con Technical. Se clasifica como High por degradación de rendimiento que afecta la experiencia, aunque no se indica bloqueo total."
       },
       "expected": {
         "category": "Technical",
@@ -407,9 +583,17 @@
       "result": {
         "category": "Other",
         "priority": "Low",
-        "summary": "Mensaje promocional sospechoso con enlace externo, probable spam.",
-        "can_auto_respond": false,
-        "reasoning": "Es un mensaje off-topic/spam sin relación con soporte técnico, facturación o producto. No hay problema del cliente ni contexto para una respuesta automática de FAQ."
+        "is_faq": false,
+        "faq_keywords": [
+          "scam",
+          "opportunity",
+          "link",
+          "spam"
+        ],
+        "confidence": 0.99,
+        "next_action": "human_review",
+        "summary": "Mensaje de spam/oferta sospechosa con enlace externo.",
+        "reasoning": "Es contenido claramente off-topic y probablemente spam o phishing. No hay una solicitud de soporte real ni un problema de producto, por lo que se clasifica como Other con prioridad baja."
       },
       "expected": {
         "category": "Other",
@@ -424,9 +608,17 @@
       "result": {
         "category": "Other",
         "priority": "Low",
-        "summary": "Consulta no relacionada con soporte técnico; busca un socio para una startup de IA.",
-        "can_auto_respond": true,
-        "reasoning": "Es un mensaje off-topic/no relacionado con la plataforma SaaS ni con soporte técnico, facturación, bugs o features. No hay indicios de bloqueo, error o frustración; por lo tanto se clasifica como Other con prioridad Low."
+        "is_faq": false,
+        "faq_keywords": [
+          "startup",
+          "IA",
+          "socio",
+          "interesado"
+        ],
+        "confidence": 0.99,
+        "next_action": "human_review",
+        "summary": "El usuario busca un socio para una startup de IA, no es un problema de soporte técnico ni de facturación.",
+        "reasoning": "Es una consulta off-topic/no relacionada con soporte SaaS. No hay indicios de fallo, billing, feature request ni urgencia; por tanto se clasifica como Other y prioridad Low."
       },
       "expected": {
         "category": "Other",
@@ -441,9 +633,18 @@
       "result": {
         "category": "Bug",
         "priority": "Critical",
+        "is_faq": false,
+        "faq_keywords": [
+          "botón delete",
+          "no puedo eliminar",
+          "botón roto",
+          "limpiar mis datos",
+          "5 días esperando"
+        ],
+        "confidence": 0.97,
+        "next_action": "technical_escalation",
         "summary": "El botón de eliminar está roto y el usuario no puede borrar datos en su cuenta desde hace 5 días.",
-        "can_auto_respond": false,
-        "reasoning": "Aunque el mensaje empieza con tono positivo, describe un problema grave oculto: una función crítica está rota y bloquea la eliminación de datos. Además, menciona que lleva 5 días esperando, lo que eleva la prioridad a Critical según la regla de feature crítica rota + esperando 5+ días."
+        "reasoning": "Aunque el mensaje empieza con un tono positivo, describe un fallo grave y bloqueante en una función crítica (eliminar datos). La espera de 5 días activa escalación a Critical según la regla de feature crítica rota + esperando 5+ días."
       },
       "expected": {
         "category": "Bug",
@@ -458,9 +659,16 @@
       "result": {
         "category": "Technical",
         "priority": "Low",
+        "is_faq": true,
+        "faq_keywords": [
+          "cambio de email",
+          "email asociado",
+          "cuenta"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "El usuario pregunta cómo cambiar el email asociado a su cuenta.",
-        "can_auto_respond": true,
-        "reasoning": "Es una consulta simple sobre gestión de cuenta sin indicios de bloqueo, error o frustración. Puede responderse con una FAQ o instrucciones automáticas."
+        "reasoning": "Es una consulta general sobre gestión de cuenta, sin indicar fallo, bloqueo ni urgencia. Puede responderse con una FAQ o guía de autoservicio."
       },
       "expected": {
         "category": "Technical",
@@ -475,9 +683,15 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
-        "summary": "El cliente reporta un error sin detalles adicionales.",
-        "can_auto_respond": true,
-        "reasoning": "El mensaje es demasiado vago ('Me sale un error') y no aporta contexto sobre acceso, facturación, bug específico o bloqueo. Según la regla de mensajes vagos, se clasifica como Technical con prioridad Medium. Puede responderse automáticamente pidiendo más detalles básicos."
+        "is_faq": true,
+        "faq_keywords": [
+          "error",
+          "me sale un error"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "El usuario reporta un error sin más detalles.",
+        "reasoning": "Es un mensaje técnico vago sin contexto adicional. Según la restricción, 'Error' y 'Me sale un error' se clasifican como Technical/Medium y no se escalan. Puede responderse con una FAQ pidiendo más detalles."
       },
       "expected": {
         "category": "Technical",
@@ -492,9 +706,18 @@
       "result": {
         "category": "Technical",
         "priority": "Critical",
-        "summary": "El usuario no recibe el email de restablecimiento de contraseña y tampoco puede cambiar el email, quedando bloqueado en el acceso.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema de autenticación/acceso. La frase \"estoy bloqueado\" indica bloqueo total, y hay múltiples intentos fallidos (reset y cambio de email), lo que eleva la prioridad a Critical. No es un caso típico de FAQ porque requiere revisión del flujo de acceso o entrega de emails."
+        "is_faq": false,
+        "faq_keywords": [
+          "reset de contraseña",
+          "no recibo el email",
+          "spam",
+          "cambiar email",
+          "bloqueado"
+        ],
+        "confidence": 0.97,
+        "next_action": "technical_escalation",
+        "summary": "El usuario no recibe el email de restablecimiento de contraseña ni puede cambiar el email, quedando bloqueado para acceder.",
+        "reasoning": "Es un problema de autenticación/acceso, por lo que corresponde a Technical. La prioridad es Critical porque el usuario está completamente bloqueado y no puede trabajar. No parece resolverse con una FAQ automática, ya que hay un fallo concreto en el flujo de recuperación de acceso."
       },
       "expected": {
         "category": "Technical",
@@ -509,9 +732,18 @@
       "result": {
         "category": "Bug",
         "priority": "Low",
-        "summary": "La interfaz se ve desalineada en Safari y los botones aparecen ligeramente fuera de lugar.",
-        "can_auto_respond": true,
-        "reasoning": "Aunque el asunto dice 'CRÍTICO', el mensaje describe un problema cosmético menor en la UI sin bloqueo real ni impacto funcional grave. Es un bug visual de baja severidad y puede responderse con una FAQ o respuesta automática."
+        "is_faq": true,
+        "faq_keywords": [
+          "Safari",
+          "interfaz",
+          "botones desalineados",
+          "UI",
+          "desalineados"
+        ],
+        "confidence": 0.96,
+        "next_action": "auto_response",
+        "summary": "La interfaz se ve desalineada en Safari; es un problema visual menor.",
+        "reasoning": "Aunque el asunto dice 'CRÍTICO', el mensaje describe solo un problema cosmético de UI en Safari sin bloqueo, pérdida de datos ni impacto funcional serio. Según las reglas, los problemas visuales menores se clasifican como Bug con prioridad baja y pueden responderse con una FAQ."
       },
       "expected": {
         "category": "Bug",
@@ -526,9 +758,17 @@
       "result": {
         "category": "Other",
         "priority": "Critical",
-        "summary": "El cliente expresa fuerte frustración por un problema no resuelto desde hace 3 semanas, con 5 tickets abiertos y amenaza de exponer su experiencia en redes sociales.",
-        "can_auto_respond": false,
-        "reasoning": "Aunque no describe el problema técnico o de facturación concreto, la combinación de frustración extrema, múltiples intentos fallidos (5 tickets), problema persistente durante 3 semanas y amenaza de churn/reputación activa la escalación a Critical. No es apto para respuesta automática porque falta el detalle del incidente."
+        "is_faq": false,
+        "faq_keywords": [
+          "problema",
+          "tickets",
+          "redes sociales",
+          "inaceptable"
+        ],
+        "confidence": 0.96,
+        "next_action": "leadership_escalation",
+        "summary": "Cliente muy frustrado por un problema sin resolver desde hace 3 semanas, con 5 tickets abiertos y amenaza de exponer la experiencia en redes sociales.",
+        "reasoning": "Aunque no se describe el tipo exacto de problema, hay clara frustración extrema, múltiples intentos fallidos y amenaza de churn/reputación. Esto cumple criterios de Critical. Se clasifica como Other porque falta contexto técnico, de billing o de bug específico."
       },
       "expected": {
         "category": "Bug",
@@ -543,9 +783,17 @@
       "result": {
         "category": "Bug",
         "priority": "High",
+        "is_faq": false,
+        "faq_keywords": [
+          "reportes",
+          "números no coinciden",
+          "dashboard",
+          "datos incorrectos"
+        ],
+        "confidence": 0.92,
+        "next_action": "technical_escalation",
         "summary": "Los reportes muestran números que no coinciden con el dashboard.",
-        "can_auto_respond": false,
-        "reasoning": "Es un reporte específico de datos incorrectos/inconsistentes entre reportes y dashboard, lo que encaja mejor como Bug. La discrepancia afecta la confianza y puede impactar la experiencia de uso, por eso la prioridad es High. No hay suficiente contexto para una respuesta automática basada solo en FAQs."
+        "reasoning": "Se trata de un reporte específico de datos inconsistentes o incorrectos entre reportes y dashboard, lo que encaja mejor como Bug. La discrepancia afecta la confianza en los datos y puede impactar significativamente la experiencia, por eso la prioridad es High. No parece una consulta de FAQ porque requiere revisión técnica del comportamiento del sistema."
       },
       "expected": {
         "category": "Bug",
@@ -560,9 +808,17 @@
       "result": {
         "category": "Billing",
         "priority": "Low",
-        "summary": "Consulta sobre las funcionalidades incluidas en el plan Premium frente al plan Basic.",
-        "can_auto_respond": true,
-        "reasoning": "Es una pregunta informativa sobre planes y sus diferencias, sin indicar bloqueo, error o frustración. Puede responderse con una FAQ o información estándar de precios/planes."
+        "is_faq": true,
+        "faq_keywords": [
+          "plan premium",
+          "basic",
+          "funcionalidades adicionales",
+          "comparación de planes"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "Consulta sobre las diferencias y funcionalidades incluidas en el plan Premium frente al plan Basic.",
+        "reasoning": "Es una pregunta informativa sobre planes y sus características, por lo que corresponde a Billing. No hay indicios de bloqueo, error o frustración, así que la prioridad es Low. Puede responderse con una FAQ sobre planes."
       },
       "expected": {
         "category": "Billing",
@@ -577,9 +833,15 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
-        "summary": "El cliente indica de forma vaga que hay un problema, sin detalles adicionales.",
-        "can_auto_respond": true,
-        "reasoning": "El mensaje es demasiado genérico ('There is a problem') y no aporta contexto suficiente para clasificarlo como bug, billing o feature request. Según la regla de mensajes vagos, corresponde a Technical con prioridad Medium. Puede responderse automáticamente pidiendo más detalles."
+        "is_faq": true,
+        "faq_keywords": [
+          "problem",
+          "there is a problem"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "Mensaje muy vago indicando que hay un problema, sin detalles adicionales.",
+        "reasoning": "Se trata de un mensaje técnico vago sin contexto específico. Según la restricción, 'Problema' y equivalentes deben clasificarse como Technical/Medium y no escalarse. Puede responderse con una respuesta automática pidiendo más detalles."
       },
       "expected": {
         "category": "Technical",
@@ -594,9 +856,17 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
-        "summary": "El cliente quiere cambiar de plan y migrar proyectos desde una cuenta antigua a una nueva, y pregunta si hay riesgo de pérdida de datos.",
-        "can_auto_respond": true,
-        "reasoning": "Aunque menciona un nuevo plan, el problema principal es la migración/transferencia de datos entre cuentas, que se clasifica como Technical según la regla de problemas técnicos con mención de billing. No hay indicios de bloqueo, error crítico o frustración fuerte; es una consulta con posible respuesta de FAQ sobre migración y seguridad de datos."
+        "is_faq": true,
+        "faq_keywords": [
+          "migración de datos",
+          "cambio de plan",
+          "transferir proyectos",
+          "riesgo de pérdida de datos"
+        ],
+        "confidence": 0.93,
+        "next_action": "auto_response",
+        "summary": "El cliente quiere cambiar de plan y transferir proyectos entre cuentas, preguntando por el proceso y el riesgo de pérdida de datos.",
+        "reasoning": "Aunque menciona un nuevo plan, el problema principal es técnico por la migración/transferencia de datos entre cuentas. No hay indicios de bloqueo, error activo ni frustración extrema. Es un caso que probablemente puede responderse con una FAQ sobre migración y cambio de plan."
       },
       "expected": {
         "category": "Technical",
@@ -611,9 +881,16 @@
       "result": {
         "category": "Other",
         "priority": "Low",
+        "is_faq": true,
+        "faq_keywords": [
+          "idiomas",
+          "disponible",
+          "plataforma"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "Consulta sobre los idiomas disponibles en la plataforma.",
-        "can_auto_respond": true,
-        "reasoning": "Es una pregunta general de información, sin problema técnico ni bloqueo real. Aunque el asunto dice 'urgente', el contenido es una consulta simple, por lo que no escala de prioridad."
+        "reasoning": "Es una pregunta informativa simple y no describe un problema técnico, de facturación ni una solicitud de feature. Aunque el asunto dice 'AYUDA URGENTE', el contenido es una consulta básica, por lo que no se escala."
       },
       "expected": {
         "category": "Other",
@@ -628,9 +905,17 @@
       "result": {
         "category": "Technical",
         "priority": "Critical",
-        "summary": "El cliente no puede acceder a la plataforma por error 403 y además reporta que el chat de soporte está offline.",
-        "can_auto_respond": false,
-        "reasoning": "El problema técnico es primario: acceso denegado con error 403 bloquea el uso de la plataforma, lo que encaja en Critical. Aunque menciona facturación, la regla indica priorizar el problema técnico. No es adecuado responder solo con FAQ porque requiere revisión de acceso y posible incidencia en producción."
+        "is_faq": false,
+        "faq_keywords": [
+          "facturación",
+          "acceso",
+          "error 403",
+          "chat de soporte offline"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
+        "summary": "El usuario está siendo cobrado pero no puede acceder a la plataforma por un error 403, y además el chat de soporte está offline.",
+        "reasoning": "Aunque menciona facturación, el problema técnico es primario según la regla de facturación + acceso. El error 403 indica acceso denegado/autenticación fallida, lo que bloquea al usuario y eleva la prioridad a Critical. No es un caso apto para FAQ porque requiere revisión técnica inmediata."
       },
       "expected": {
         "category": "Technical",
@@ -645,9 +930,17 @@
       "result": {
         "category": "Technical",
         "priority": "Low",
+        "is_faq": true,
+        "faq_keywords": [
+          "API",
+          "documentación",
+          "integrar",
+          "plataforma"
+        ],
+        "confidence": 0.97,
+        "next_action": "auto_response",
         "summary": "El cliente solicita la documentación de la API para integrar la plataforma en su aplicación.",
-        "can_auto_respond": true,
-        "reasoning": "Es una consulta general sobre documentación e integración, sin indicar fallo, bloqueo ni frustración. Puede responderse con una FAQ o enlace a la documentación."
+        "reasoning": "Es una consulta técnica general sobre documentación e integración, sin indicar fallo, bloqueo ni frustración. Puede responderse automáticamente con un enlace o instrucciones de la FAQ."
       },
       "expected": {
         "category": "Technical",
@@ -662,9 +955,17 @@
       "result": {
         "category": "Billing",
         "priority": "Critical",
-        "summary": "El cliente canceló la suscripción hace 3 días pero sigue siendo cobrado; el sistema de cancelación no funciona y lo considera fraude.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema de facturación con cobro indebido tras cancelación, lo que entra en Billing. La mención de 'esto es un fraude' activa la escalación a Critical según la regla de frustración, y además hay un problema recurrente/sin resolver de cancelación que sigue generando cargos. No es adecuado para respuesta automática porque requiere revisión manual de cobros y suscripción."
+        "is_faq": false,
+        "faq_keywords": [
+          "cancelación",
+          "suscripción",
+          "cobrado",
+          "fraude"
+        ],
+        "confidence": 0.99,
+        "next_action": "leadership_escalation",
+        "summary": "El cliente fue cobrado después de cancelar la suscripción y afirma que el sistema de cancelación no funciona.",
+        "reasoning": "Es un problema de facturación con posible cobro indebido/fraudulento, lo que eleva la prioridad a Critical. Además, incluye una queja explícita de fraude y frustración fuerte. No es apto para respuesta automática porque requiere revisión humana inmediata."
       },
       "expected": {
         "category": "Billing",
@@ -679,9 +980,18 @@
       "result": {
         "category": "Bug",
         "priority": "Critical",
-        "summary": "El usuario reporta que durante la carga masiva algunos archivos se eliminan aleatoriamente, con pérdida de datos importante tras 3 ocurrencias.",
-        "can_auto_respond": false,
-        "reasoning": "Aunque el tono es positivo, hay un problema grave oculto: pérdida de datos confirmada durante bulk upload. Además menciona que ocurrió 3 veces, lo que indica recurrencia y eleva la prioridad a Critical. No es apto para respuesta automática porque requiere revisión técnica urgente."
+        "is_faq": false,
+        "faq_keywords": [
+          "bulk upload",
+          "files deleted",
+          "lost data",
+          "randomly deleted",
+          "data loss"
+        ],
+        "confidence": 0.98,
+        "next_action": "technical_escalation",
+        "summary": "Durante la carga masiva, algunos archivos se eliminan aleatoriamente y el cliente ha perdido datos importantes tras 3 ocurrencias.",
+        "reasoning": "Aunque el mensaje empieza con tono positivo, describe un problema grave oculto: pérdida confirmada de datos en bulk upload, repetido 3 veces. Esto encaja como Bug y escala a Critical por pérdida de datos y recurrencia."
       },
       "expected": {
         "category": "Bug",
@@ -696,9 +1006,17 @@
       "result": {
         "category": "Bug",
         "priority": "Medium",
-        "summary": "El usuario no puede descargar archivos y recibe un error al intentar hacerlo; pregunta si se debe al límite de almacenamiento o a un bug.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema específico de funcionalidad (descargas fallan con error), por lo que encaja mejor como Bug. No hay evidencia de bloqueo total, pérdida de datos ni múltiples intentos, así que la prioridad es Medium. No conviene respuesta automática porque requiere confirmar si es un límite de almacenamiento o un fallo de la aplicación."
+        "is_faq": false,
+        "faq_keywords": [
+          "descargar",
+          "error",
+          "límite de almacenamiento",
+          "bug"
+        ],
+        "confidence": 0.92,
+        "next_action": "human_review",
+        "summary": "El usuario no puede descargar archivos y recibe un error al intentar hacerlo.",
+        "reasoning": "Se trata de un fallo específico en la funcionalidad de descargas, por lo que encaja mejor como Bug que como Technical. No hay indicios de bloqueo total, pérdida de datos, múltiples intentos fallidos ni frustración extrema, así que la prioridad es Medium. No es una consulta típica de FAQ porque requiere verificar si el error está relacionado con el límite de almacenamiento o con un bug."
       },
       "expected": {
         "category": "Technical",
@@ -713,9 +1031,17 @@
       "result": {
         "category": "Feature Request",
         "priority": "Low",
+        "is_faq": true,
+        "faq_keywords": [
+          "dark mode",
+          "planes",
+          "agregar",
+          "trabajar de noche"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "El cliente pregunta si hay planes para agregar modo oscuro.",
-        "can_auto_respond": true,
-        "reasoning": "Es una solicitud de nueva funcionalidad sin indicar bloqueo, error ni urgencia real. Puede responderse con una respuesta automática de FAQ sobre solicitudes de features."
+        "reasoning": "Es una solicitud de nueva funcionalidad sin indicios de bloqueo, error o frustración. Encaja como Feature Request de prioridad baja y puede responderse con una respuesta automática basada en FAQ."
       },
       "expected": {
         "category": "Feature Request",
@@ -730,9 +1056,16 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
-        "summary": "El cliente indica de forma vaga que no funciona nada, sin aportar detalles adicionales.",
-        "can_auto_respond": true,
-        "reasoning": "El mensaje es demasiado vago y no incluye contexto técnico específico ni señales de bloqueo crítico. Según la regla de mensajes vagos, se clasifica como Technical con prioridad Medium. Puede responderse con una solicitud automática de más detalles."
+        "is_faq": false,
+        "faq_keywords": [
+          "no anda",
+          "no funciona",
+          "no funciona nada"
+        ],
+        "confidence": 0.97,
+        "next_action": "human_review",
+        "summary": "El cliente indica de forma vaga que la plataforma no funciona.",
+        "reasoning": "Es un mensaje técnico vago sin contexto específico. Según la restricción, 'No anda' y 'No funciona' deben clasificarse como Technical/Medium y no escalarse a una categoría más grave sin detalles adicionales."
       },
       "expected": {
         "category": "Technical",
@@ -747,9 +1080,17 @@
       "result": {
         "category": "Billing",
         "priority": "Critical",
+        "is_faq": false,
+        "faq_keywords": [
+          "factura incorrecta",
+          "refund",
+          "cobro incorrecto",
+          "investigación"
+        ],
+        "confidence": 0.98,
+        "next_action": "leadership_escalation",
         "summary": "Cobro incorrecto de $500 en lugar de $50 y solicitud de refund inmediato.",
-        "can_auto_respond": false,
-        "reasoning": "Es un problema de facturación con posible cobro fraudulento o incorrecto, y el cliente exige un refund inmediato. Según las reglas, los problemas de facturación fraudulentos o con exigencia de compensación se clasifican como Critical. No es adecuado responder solo con una FAQ porque requiere revisión humana."
+        "reasoning": "Es un problema de facturación con posible cobro fraudulento/incorrecto y solicitud explícita de refund inmediato. La urgencia y el monto incorrecto elevan la prioridad a Critical."
       },
       "expected": {
         "category": "Billing",
@@ -764,9 +1105,15 @@
       "result": {
         "category": "Other",
         "priority": "Low",
-        "summary": "Consulta sobre la política de privacidad.",
-        "can_auto_respond": true,
-        "reasoning": "Es una pregunta general de información, sin indicios de problema técnico, facturación o bloqueo. La palabra 'EMERGENCIA' parece una falsa alarma y no cambia la clasificación."
+        "is_faq": true,
+        "faq_keywords": [
+          "política de privacidad",
+          "privacidad"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "Consulta general sobre la política de privacidad.",
+        "reasoning": "Es una pregunta informativa y no reporta un problema técnico, de facturación ni una solicitud de feature. Aunque el asunto dice 'EMERGENCIA', el contenido es una consulta simple, por lo que no se escala."
       },
       "expected": {
         "category": "Other",
@@ -779,11 +1126,19 @@
       "category_type": "EDGE_CASE_FRUSTRATION",
       "subject": "Decepcionado",
       "result": {
-        "category": "Billing",
+        "category": "Feature Request",
         "priority": "Critical",
-        "summary": "Cliente insatisfecho con el plan premium pagado; indica que las funcionalidades prometidas no están implementadas y que siente que está tirando dinero.",
-        "can_auto_respond": false,
-        "reasoning": "Aunque menciona el plan premium, el problema principal es una queja grave sobre valor recibido y frustración extrema ('estoy tirando dinero'), lo que activa la regla de escalación por frustración. No es un caso de FAQ simple porque requiere revisión del estado del plan, promesas de producto y posible compensación."
+        "is_faq": false,
+        "faq_keywords": [
+          "plan premium",
+          "funcionalidades prometidas",
+          "actualización",
+          "tirando dinero"
+        ],
+        "confidence": 0.95,
+        "next_action": "leadership_escalation",
+        "summary": "Cliente insatisfecho con el plan premium porque las funcionalidades prometidas no están implementadas y percibe que está perdiendo dinero.",
+        "reasoning": "Aunque menciona un plan de pago, el problema principal es la falta de funcionalidades prometidas y la frustración es alta ('estoy tirando dinero'). Esto encaja mejor como solicitud/incumplimiento de feature que como billing puro, y por la queja de pérdida de dinero se escala a Critical."
       },
       "expected": {
         "category": "Feature Request",
@@ -798,9 +1153,19 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
-        "summary": "Problema de sincronización entre la web y la app mobile; el usuario pregunta si es un bug o una función no disponible.",
-        "can_auto_respond": true,
-        "reasoning": "Se trata de un problema técnico de sincronización/conectividad entre dispositivos. No hay indicios de bloqueo total, pérdida de datos, múltiples intentos fallidos ni frustración fuerte, así que la prioridad es Medium. Puede responderse automáticamente con FAQs sobre sincronización y disponibilidad de la función."
+        "is_faq": true,
+        "faq_keywords": [
+          "sincronización",
+          "dispositivos",
+          "web",
+          "app mobile",
+          "bug",
+          "feature no disponible"
+        ],
+        "confidence": 0.93,
+        "next_action": "auto_response",
+        "summary": "El usuario pregunta por falta de sincronización entre la web y la app móvil.",
+        "reasoning": "Se trata de un problema técnico de sincronización entre dispositivos. No hay indicios de bloqueo total, pérdida de datos, múltiples intentos fallidos ni frustración extrema, por lo que la prioridad es Medium. Puede responderse con una FAQ sobre sincronización y disponibilidad de la función."
       },
       "expected": {
         "category": "Bug",
@@ -815,9 +1180,17 @@
       "result": {
         "category": "Feature Request",
         "priority": "Low",
-        "summary": "El cliente solicita la capacidad de dejar comentarios en proyectos para facilitar la colaboración y el feedback.",
-        "can_auto_respond": true,
-        "reasoning": "Es una solicitud de nueva funcionalidad, no un bug ni un problema técnico. No hay indicios de bloqueo, urgencia crítica ni frustración."
+        "is_faq": false,
+        "faq_keywords": [
+          "comentarios",
+          "colaboración",
+          "feedback",
+          "proyectos"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
+        "summary": "El cliente solicita una nueva funcionalidad para poder dejar comentarios en proyectos colaborativos.",
+        "reasoning": "Es una solicitud clara de mejora del producto, no un fallo ni un problema de acceso/facturación. No hay señales de urgencia, bloqueo o frustración, por lo que la prioridad es baja."
       },
       "expected": {
         "category": "Feature Request",
@@ -832,9 +1205,16 @@
       "result": {
         "category": "Technical",
         "priority": "Medium",
+        "is_faq": true,
+        "faq_keywords": [
+          "doesn't work",
+          "it dosent work",
+          "no funciona"
+        ],
+        "confidence": 0.98,
+        "next_action": "auto_response",
         "summary": "El cliente indica de forma vaga que algo no funciona.",
-        "can_auto_respond": true,
-        "reasoning": "El mensaje es demasiado vago ('doesn't work' / 'it dosent work') y no aporta contexto específico. Según la regla de mensajes vagos, se clasifica como Technical con prioridad Medium. No hay señales de bloqueo, frustración extrema ni detalles suficientes para escalar."
+        "reasoning": "Es un mensaje técnico vago sin contexto específico. Según la restricción, 'Doesn't work' sin detalles se clasifica como Technical/Medium y puede responderse con una respuesta automática basada en FAQs."
       },
       "expected": {
         "category": "Technical",
@@ -849,9 +1229,18 @@
       "result": {
         "category": "Bug",
         "priority": "High",
+        "is_faq": false,
+        "faq_keywords": [
+          "storage",
+          "large files",
+          "disappear",
+          "upload",
+          "account"
+        ],
+        "confidence": 0.92,
+        "next_action": "technical_escalation",
         "summary": "Archivos grandes subidos desaparecen de la cuenta después de una semana.",
-        "can_auto_respond": false,
-        "reasoning": "Describe un comportamiento inesperado y específico de la aplicación (archivos que desaparecen), lo que encaja mejor como Bug. Aunque el tono es positivo, hay un problema oculto relevante con posible pérdida de datos, por lo que la prioridad sube a High. No es una consulta típica de FAQ porque requiere revisión del comportamiento y posible investigación."
+        "reasoning": "Es un reporte específico de comportamiento inesperado con posible pérdida de datos. Aunque el tono es positivo, el problema descrito es serio y recurrente ('sometimes' y 'after a week'), por lo que se clasifica como Bug con prioridad High. No parece responderse solo con FAQ."
       },
       "expected": {
         "category": "Bug",
@@ -866,9 +1255,19 @@
       "result": {
         "category": "Technical",
         "priority": "Low",
-        "summary": "Solicitud de información sobre migración de datos, precios para 500 usuarios y garantía de uptime/SLA.",
-        "can_auto_respond": true,
-        "reasoning": "El ticket combina una necesidad técnica (migración de datos) con consultas de pricing y SLA. Según la regla de problemas técnicos con mención de billing, prevalece el componente técnico, por lo que se clasifica como Technical. No hay bloqueo, error ni frustración; es una consulta informativa, así que la prioridad es Low. Puede responderse automáticamente con FAQs o información estándar."
+        "is_faq": true,
+        "faq_keywords": [
+          "migración de datos",
+          "500 usuarios",
+          "500 seats",
+          "precio anual",
+          "uptime 99.9%",
+          "SLA"
+        ],
+        "confidence": 0.96,
+        "next_action": "auto_response",
+        "summary": "Consulta sobre migración de datos, precio para 500 licencias anuales y garantía de uptime/SLA.",
+        "reasoning": "El problema principal es técnico por la migración de datos, aunque también incluye una consulta de pricing. No hay indicios de bloqueo, error ni frustración; es una solicitud informativa que puede responderse con FAQs o derivación comercial estándar."
       },
       "expected": {
         "category": "Billing",
@@ -883,9 +1282,18 @@
       "result": {
         "category": "Other",
         "priority": "Critical",
-        "summary": "El cliente reporta una caída del sistema de 8 horas, pérdida de ventas y exige compensación y SLA garantizado.",
-        "can_auto_respond": false,
-        "reasoning": "Aunque el problema es grave, el ticket se centra en una demanda de compensación/SLA y una queja por indisponibilidad con pérdida económica confirmada. La frase 'exijo compensación' activa la escalación a Critical. Se clasifica como Other porque no encaja limpiamente en Billing, Technical, Feature Request o Bug; es una reclamación/escala de servicio más que una incidencia técnica específica."
+        "is_faq": false,
+        "faq_keywords": [
+          "compensación",
+          "SLA",
+          "caído",
+          "pérdí ventas",
+          "tiempo de respuesta"
+        ],
+        "confidence": 0.98,
+        "next_action": "leadership_escalation",
+        "summary": "El cliente reporta una caída del sistema de 8 horas, pérdidas económicas significativas y exige compensación y SLA garantizado.",
+        "reasoning": "Se clasifica como Other porque el foco principal es una demanda de compensación y SLA, no una consulta estándar de billing/technical/bug/feature. La prioridad es Critical por la mención de pérdida de dinero, caída prolongada del sistema, frustración extrema e მოთხოვნა explícita de compensación, que según las reglas siempre escala."
       },
       "expected": {
         "category": "Technical",

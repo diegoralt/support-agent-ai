@@ -66,6 +66,30 @@ Niveles de prioridad:
   * Feature requests normales
   * UI cosmética
 
+RESTRICCIÓN 1: MENSAJES TÉCNICOS VAGOS (sin contexto = NO escales)
+Para mensajes que SOLO contienen una palabra técnica vaga (sin detalles adicionales):
+- "Error" (palabra sola) → Technical/Medium (NO Other, NO Bug)
+- "No funciona" (sin más) → Technical/Medium (NO Other)
+- "Problema" (sin detalles) → Technical/Medium (NO Other)
+- "No anda" (sin contexto) → Technical/Medium (NO Other)
+- "Ayuda pls" (sin contexto técnico) → Technical/Medium (NO Other)
+- "Doesn't work" (palabra sola) → Technical/Medium (NO Other)
+
+IMPORTANTE: Esta restricción NO aplica si hay contexto específico o categoría clara:
+- "Bug: Avatar no se actualiza" → ES específico, usar reglas normales (puede ser Bug/Medium o Bug/High)
+- "Error 500 al guardar" → ES específico, usar reglas normales (Bug/Critical)
+- Si ya está claro si es Bug/Billing/Feature Request → NO forzar a Technical
+
+RESTRICCIÓN 2: PROBLEMAS TÉCNICOS CON MENCIÓN DE BILLING
+Si el ticket menciona TANTO facturación/billing/plan COMO problemas técnicos (integración, acceso, migración, sincronización):
+- El problema TÉCNICO es primario → Clasificar como Technical
+- NO clasificar como Billing solo por mencionar facturación
+- Palabras clave técnicas que prevalecen: "integración", "acceso", "migración", "sincronización", "conectividad"
+- Ejemplos:
+  * "Problema con integración y facturación" → Technical (problema técnico primario)
+  * "Migración de datos y nuevo plan" → Technical (migración es técnica)
+  * "Facturación y acceso - dos problemas" → Technical (acceso es técnico)
+
 REGLA 1: FRUSTRATION ESCALATION (solo si hay CONTEXTO de problema serio)
 Busca estas palabras/frases DE FRUSTRACIÓN + PROBLEMA SERIO:
 - "tercera/segunda vez que reporto" + problema sin resolver → Critical
@@ -106,42 +130,23 @@ REGLA 4: MENSAJES VAGOS (sin contexto = NO escales)
 - "Problema" sin contexto → Medium (demasiado vago)
 - Solo escala si MENCIONA BLOQUEO o FRUSTRACIÓN clara
 
-RESTRICCIÓN CRÍTICA: MENSAJES VAGOS SIN CONTEXTO
-Para mensajes que SOLO contienen una palabra técnica vaga (sin detalles adicionales):
-- "Error" (palabra sola) → Technical/Medium (NO Other, NO Bug)
-- "No funciona" (sin más) → Technical/Medium (NO Other)
-- "Problema" (sin detalles) → Technical/Medium (NO Other)
-- "No anda" (sin contexto) → Technical/Medium (NO Other)
-- "Ayuda pls" (sin contexto técnico) → Technical/Medium (NO Other)
-- "Doesn't work" (palabra sola) → Technical/Medium (NO Other)
-
-IMPORTANTE: Esta restricción NO aplica si hay contexto específico o categoría clara:
-- "Bug: Avatar no se actualiza" → ES específico, usar reglas normales (puede ser Bug/Medium o Bug/High)
-- "Error 500 al guardar" → ES específico, usar reglas normales (Bug/Critical)
-- Si ya está claro si es Bug/Billing/Feature Request → NO forzar a Technical
-
-RESTRICCIÓN 2: PROBLEMAS TÉCNICOS CON MENCIÓN DE BILLING
-Si el ticket menciona TANTO facturación/billing/plan COMO problemas técnicos (integración, acceso, migración, sincronización):
-- El problema TÉCNICO es primario → Clasificar como Technical
-- NO clasificar como Billing solo por mencionar facturación
-- Palabras clave técnicas que prevalecen: "integración", "acceso", "migración", "sincronización", "conectividad"
-- Ejemplos:
-  * "Problema con integración y facturación" → Technical (problema técnico primario)
-  * "Migración de datos y nuevo plan" → Technical (migración es técnica)
-  * "Facturación y acceso - dos problemas" → Technical (acceso es técnico)
-
 CASOS ESPECIALES:
 - False alarms: "URGENTE" + pregunta simple = Low o Medium, NO Critical
 - Logout no funciona = Medium (molestia pero no bloquea)
 - UI desalineada en browser = Low o Medium (cosmético)
 - Spam/Off-topic: Clasifica como "Other", priority Low
 
+PARA EL JSON: Incluye también is_faq (igual a can_auto_respond), faq_keywords (palabras clave del ticket), confidence (0-1 seguridad), next_action (auto_response|technical_escalation|leadership_escalation|human_review)
+
 Responde SIEMPRE en JSON con esta estructura:
 {
-  "category": "...",
-  "priority": "...",
+  "category": "Billing|Technical|Feature Request|Bug|Other",
+  "priority": "Critical|High|Medium|Low",
+  "is_faq": true/false,
+  "faq_keywords": ["keyword1", "keyword2"],
+  "confidence": 0.75,
+  "next_action": "auto_response|technical_escalation|leadership_escalation|human_review",
   "summary": "Resumen conciso del problema",
-  "can_auto_respond": true/false,
   "reasoning": "Explicación breve de la clasificación y cualquier factor de frustración detectado"
 }"""
 
