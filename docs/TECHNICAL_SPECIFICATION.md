@@ -1,11 +1,13 @@
 ---
 type: technical-specification
-status: APPROVED
-version: 1.0
-last_updated: 2026-04-28
+status: APPROVED - Design Phase v2.0
+version: 2.0
+last_updated: 2026-05-02
 ---
 
-# TECHNICAL SPECIFICATION - Support Intelligence Agent
+# TECHNICAL SPECIFICATION - Support Intelligence Agent v2.0
+
+**Major Update (2026-05-02)**: Specification redesigned with 3 execution flows + detailed architectural decisions.
 
 ## Problem Statement
 
@@ -16,36 +18,82 @@ Cost: 400-600 minutes/day = 8.3 hours wasted
 Accuracy: 60% (40% misclassification)
 ```
 
-## Solution Architecture
+## Solution Architecture: 3 Execution Flows
 
+### **FLOW 1: FAQ Auto-Response**
 ```
-┌─────────────────────────────────────────────────┐
-│ TICKET INGESTION (n8n Webhook)                  │
-└────────────────┬────────────────────────────────┘
-                 ↓
-┌─────────────────────────────────────────────────┐
-│ ANALYSIS (OpenAI - Classify)                    │
-│ Output: {category, priority, is_faq, confidence}│
-└────────────────┬────────────────────────────────┘
-                 ↓
-┌─────────────────────────────────────────────────┐
-│ DECISION (Switch/IF Logic)                      │
-│ Is FAQ? → Search Supabase → Format Response    │
-│ Is Technical? → Escalate to dev team            │
-│ Is Critical? → Escalate to leadership           │
-└────────────────┬────────────────────────────────┘
-                 ↓
-┌─────────────────────────────────────────────────┐
-│ PERSISTENCE (Supabase - Update ticket)          │
-│ Store: classification, response, metadata       │
-└────────────────┬────────────────────────────────┘
-                 ↓
-┌─────────────────────────────────────────────────┐
-│ ACTION (Send Email + Notifications)             │
-│ Email: Automated response or human assignment   │
-│ Slack: Alert if escalation needed               │
-└─────────────────────────────────────────────────┘
+Webhook Input
+    ↓
+OpenAI Classify (Prompt V1)
+    ├─ is_faq: boolean
+    ├─ confidence: 0.0-1.0
+    └─ faq_primary_keyword: string
+    ↓
+IF is_faq = true AND confidence >= 0.80
+    ↓
+    HTTP Request → Supabase REST API
+        ├─ SQL: SELECT with CASE scoring
+        ├─ title priority: 100
+        └─ full_content priority: 25
+    ↓
+    IF FAQ found (match_score >= 25)
+        ↓
+        OpenAI Format (Prompt V2)
+        ↓
+        Send Email: FAQ Response
+    ↓
+    ELSE (no FAQ found)
+        ↓
+        Send Email: Generic Response
+        ↓
+        Route to Flow 2 (escalation)
+    ↓
+    Save: status = "auto_responded"
 ```
+
+**Accuracy Target**: 85-90% FAQ detection + matching
+
+---
+
+### **FLOW 2: Escalation (High/Critical)**
+```
+Webhook Input
+    ↓
+OpenAI Classify (Prompt V1)
+    └─ Priority: Critical | High | Medium | Low
+    ↓
+IF Priority in [High, Critical]
+    ↓
+    Save: status = "escalated"
+    ↓
+    [OPTIONAL] Email Customer: "Being reviewed..."
+    ↓
+    Route to Flow 3 (alert team)
+```
+
+**Response Policy**:
+- High/Critical: NO auto-response → escalate immediately
+- Medium/Low (no FAQ): Generic response → flag for review
+
+---
+
+### **FLOW 3: Internal Team Alerting**
+```
+Escalated Ticket (Flow 2 output)
+    ↓
+Format Alert Message:
+    - Ticket ID + Priority
+    - Customer email
+    - Issue summary (200 chars)
+    ↓
+Send Alert:
+    ├─ PRIMARY: Slack (#support-alerts)
+    └─ FALLBACK: Telegram API
+    ↓
+Log: Alert sent timestamp
+```
+
+**Success Metric**: Alert delivered within <1 minute
 
 ## Database Schema
 
@@ -132,20 +180,39 @@ CREATE TABLE processing_logs (
 );
 ```
 
-## n8n Workflow
+## n8n Workflow Implementation
 
-### Nodes & Sequence
+### Core Nodes & Sequence
 
+**Flow 1: FAQ Auto-Response**
 1. **Webhook** - Receive ticket JSON
 2. **AI Agent (Classify)** - Classification (Prompt V1)
 3. **Create a Row** - Save ticket to Supabase
-4. **Switch/IF** - Route based on is_faq
-5. **Supabase Query** - Find matching FAQ
-6. **Code Node** - Map data for Prompt V2
+4. **Switch/IF** - Route: is_faq? → YES = Flow 1 | NO = Flow 2/3
+5. **HTTP Request** - Query Supabase REST API (search_faqs function) ← CHANGED from "Execute Query"
+6. **Code Node** - Map FAQ data for Prompt V2
 7. **AI Agent (Format)** - Format response (Prompt V2)
-8. **Send Email** - Send response to customer
-9. **Update Row** - Mark as processed
+8. **Send Email** - Send FAQ response to customer
+9. **Update Row** - Mark status: "auto_responded"
 10. **Processing Logs** - Audit trail
+
+**Flow 2: Escalation**
+- 4b. **Switch/IF** - Route by Priority
+- 5a. **Update Row** - Save escalated ticket
+- 5b. **Code Node** - Format escalation alert
+- 5c. **Send Email** [OPTIONAL] - Notify customer
+- → Route to Flow 3
+
+**Flow 3: Internal Alerting**
+- 6c. **Slack Node** - Send to #support-alerts
+- 6d. **HTTP Request** [OPTIONAL] - Telegram fallback
+- 6e. **Insert Row** - Log alert sent
+
+### Key Decision: Node 5 Implementation
+- **OLD**: Supabase "Execute Query" node (not available in n8n)
+- **NEW**: HTTP Request + Supabase REST API
+- **Why**: More flexible, custom SQL support, matches n8n capabilities
+- **Supabase Setup**: Create PostgreSQL function `search_faqs()` with CASE scoring
 
 ## Performance Targets
 
